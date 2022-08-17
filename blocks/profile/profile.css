@@ -44,6 +44,11 @@
 	text-align: center;
 }
 
+.profile__name:after:hover {
+	cursor: pointer;
+	opacity: .6;
+}
+
 .profile__brief {
 	margin: 0;
 	font-weight: 400;
