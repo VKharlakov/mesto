@@ -41,6 +41,9 @@
 	font-weight: 900;
 	font-size: 24px;
 	line-height: 29px;
+	text-overflow: ellipsis;
+  	white-space: nowrap;
+  	overflow: hidden;
 }
 
 .elements__like-button {
@@ -49,6 +52,7 @@
 	height: 19px;
 	background-position: center;
 	background-repeat: no-repeat;
+	background-size: contain;
 	margin: 0;
 	margin-right: 5px;
 	padding: 0;
@@ -60,4 +64,8 @@
 .elements__like-button:hover {
 	opacity: .5;
 	cursor: pointer;
+}
+
+.elements__like-button_active {
+	background-image: url(../../images/elements/like-button_active.svg);
 }

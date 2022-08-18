@@ -6,3 +6,9 @@
 	box-sizing: border-box;
 	padding: 0 19px;
 }
+
+@media screen and (max-width: 319px) {
+	.content {
+		padding: 0 10px;
+	}
+}
