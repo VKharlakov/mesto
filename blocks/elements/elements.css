@@ -4,6 +4,7 @@
 	max-width: 880px;
 	grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
 	grid-template-rows: repeat(auto-fit, 361px);
+	grid-auto-rows: 361px;
 	grid-column-gap: 17px;
 	grid-row-gap: 20px;
 }
@@ -20,15 +21,10 @@
 	height: 100%;
 }
 
-.elements__title {
+.elements__info {
 	background-color: white;
 	height: 79px;
 	color: #000000;
-	margin: 0;
-	padding: 0;
-	font-weight: 900;
-	font-size: 24px;
-	line-height: 29px;
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -39,13 +35,29 @@
 	padding: 0 15px 0 21px;
 }
 
-.elements__title::after {
-	content: url(../../images/elements/like-button.svg);
-	width: 22px;
-	height: 19px;
+.elements__title {
+	margin: 0;
+	padding: 0;
+	font-weight: 900;
+	font-size: 24px;
+	line-height: 29px;
 }
 
-.elements__title::after:hover {
+.elements__like-button {
+	background-image: url(../../images/elements/like-button.svg);
+	width: 22px;
+	height: 19px;
+	background-position: center;
+	background-repeat: no-repeat;
+	margin: 0;
+	margin-right: 5px;
+	padding: 0;
+	border-style: none;
+	background-color: transparent;
+	transition: .2s;
+}
+
+.elements__like-button:hover {
+	opacity: .5;
 	cursor: pointer;
-	opacity: .6;
 }
