@@ -50,24 +50,6 @@
 	cursor: pointer;
 }
 
-/*.profile__name::after {
-	content: url(../../images/profile/edit-button-symbol.svg);
-	width: 10px;
-	height: 10px;
-	border: 2px solid #FFFFFF;
-	padding: 5px;
-	display: inline-block;
-	font-size: 0;
-	line-height: 0;
-	margin-left: 25px;
-	text-align: center;
-}
-
-.profile__name:hover:after {
-	cursor: pointer;
-	opacity: .6;
-}*/
-
 .profile__brief {
 	margin: 0;
 	margin-top: 16px;
