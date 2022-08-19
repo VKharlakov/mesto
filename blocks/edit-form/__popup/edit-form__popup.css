@@ -4,7 +4,6 @@
 	max-width: 430px;
 	height: 100%;
 	max-height: 330px;
-    position: relative;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -19,6 +18,6 @@
 	.edit-form__popup {
 		padding: 25px 22px;
 		max-width: 282px;
-		max-height: 332px;
+		max-height: 322px;
 	}
 }

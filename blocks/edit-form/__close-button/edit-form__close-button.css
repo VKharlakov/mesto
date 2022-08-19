@@ -8,12 +8,10 @@
 	background-color: transparent;
 	padding: 0;
 	margin: 0;
+	margin-left: auto;
 	border-style: none;
 	border: none;
 	transition: .2s;
-	position: absolute;
-	top: -40px;
-	right: -40px;
 }
 
 .edit-form__close-button:hover {
@@ -25,7 +23,6 @@
 	.edit-form__close-button {
 		width: 20px;
 		height: 20px;
-		top: -32px;
-		right: 0;
+		margin-bottom: 16px;
 	}
 }

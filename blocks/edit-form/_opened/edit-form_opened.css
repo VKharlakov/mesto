@@ -1,5 +1,16 @@
 .edit-form_opened {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 500px;
+    grid-template-rows: 32px 330px;
+    justify-items: center;
+    align-content: center;
+}
+
+@media screen and (max-width: 578px) {
+	.edit-form_opened {
+		grid-template-columns: 282px;
+    	grid-template-rows: 20px 322px;
+	}
 }
