@@ -4,26 +4,8 @@
 	padding-top: 66px;
 }
 
-.footer__copyright {
-	padding-left: 19px;
-	color: #545454;
-	font-weight: 400;
-	font-size: 18px;
-	line-height: 22px;
-}
-
 @media screen and (max-width: 400px) {
 	.footer {
 		padding-top: 48px;
-	}
-	.footer__copyright {
-		font-size: 14px;
-		line-height: 17px;
-	}
-}
-
-@media screen and (max-width: 319px) {
-	.footer__copyright {
-		padding-left: 17px;
 	}
 }

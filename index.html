@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="./vendor/normalize.css">
-		<link rel="stylesheet" type="text/css" href="./vendor/fonts/fonts.css">
-		<link rel="stylesheet" type="text/css" href="./blocks/page/page.css">
-		<link rel="stylesheet" type="text/css" href="./blocks/content/content.css">
-		<link rel="stylesheet" type="text/css" href="./blocks/header/header.css">
-		<link rel="stylesheet" type="text/css" href="./blocks/edit-form/edit-form.css">
-		<link rel="stylesheet" type="text/css" href="./blocks/profile/profile.css">
-		<link rel="stylesheet" type="text/css" href="./blocks/elements/elements.css">
-		<link rel="stylesheet" type="text/css" href="./blocks/footer/footer.css">
+		<link rel="stylesheet" type="text/css" href="./pages/index.css">
 		<title>Mesto</title>
 	</head>
 	<body class="page">
@@ -20,11 +12,11 @@
 		</header>
 		<main class="content">
 			<section class="edit-form">
-				<div class="edit-form__form">
+				<div class="edit-form__popup">
 					<h1 class="edit-form__title">Редактировать профиль</h1>
-					<input type="text" class="edit-form__input" placeholder="Введите имя" name="">
-					<input type="text" class="edit-form__input" placeholder="Опишите себя" name="">
-					<button class="edit-form__submit-button">Сохранить</button>
+					<input type="text" class="edit-form__input edit-form__input_type_name" placeholder="Введите имя" name="text">
+					<input type="text" class="edit-form__input edit-form__input_type_brief" placeholder="Опишите себя" name="text">
+					<input  class="edit-form__submit-button" type="submit" value="Сохранить">
 					<button class="edit-form__close-button"></button>
 				</div>
 			</section>
@@ -87,6 +79,6 @@
 		<footer class="footer">
 			<p class="footer__copyright">&copy;&nbsp;2022 Mesto Russia // Kharlakov Vitaly</p>
 		</footer>
-		<script type="text/javascript" src="script.js"></script>
+		<script src="index.js"></script>
 	</body>
 </html>
