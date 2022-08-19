@@ -4,9 +4,7 @@
 	max-width: 430px;
 	height: 100%;
 	max-height: 330px;
-	position: fixed;
-	top: calc((100vh - 330px) / 2);
-    left: calc((100vw - 430px) / 2);
+    position: relative;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -22,7 +20,5 @@
 		padding: 25px 22px;
 		max-width: 282px;
 		max-height: 332px;
-		top: calc((100vh - 332px) / 2);
-    	left: calc((100vw - 282px) / 2);
 	}
 }

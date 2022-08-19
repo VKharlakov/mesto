@@ -6,6 +6,9 @@
 	font-size: 42px;
 	line-height: 114%;
 	transition: .2s;
+	text-overflow: ellipsis;
+  	/*white-space: nowrap;*/
+  	overflow: hidden;
 }
 
 @media screen and (max-width: 400px) {

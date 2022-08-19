@@ -1,5 +1,7 @@
 .elements__element {
 	border-radius: 10px;
 	overflow: hidden;
-	position: relative;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
 }
