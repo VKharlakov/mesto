@@ -1,4 +1,5 @@
-let popUpForm = document.querySelector('.edit-form')
+let popUp = document.querySelector('.edit-form')
+let popUpForm = document.querySelector('.edit-form__inputs')
 let closeButton = document.querySelector('.edit-form__close-button')
 let editButton = document.querySelector('.profile__edit-button')
 let profileName = document.querySelector('.profile__name')
@@ -9,11 +10,11 @@ let inputBrief = document.querySelector('.edit-form__input_type_brief')
 function showPopUp() {
 	inputName.value = profileName.textContent
 	inputBrief.value = profileBrief.textContent
-	popUpForm.classList.add('edit-form_opened')
+	popUp.classList.add('edit-form_opened')
 }
 
 function hidePopUp() {
-	popUpForm.classList.remove('edit-form_opened')
+	popUp.classList.remove('edit-form_opened')
 }
 
 function submitForm(evt) {
