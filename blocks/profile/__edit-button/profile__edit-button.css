@@ -7,7 +7,7 @@
 	margin: auto 0 auto 18px;
 	padding: 0;
 	border-style: none;
-	background-color: black;
+	background-color: transparent;
 	border: 1px solid #FFFFFF;
 	transition: .2s;
 }

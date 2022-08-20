@@ -13,6 +13,7 @@
 	font-size: 18px;
 	line-height: 22px;
 	transition: .2s;
+	border-radius: 2px;
 }
 
 .edit-form__submit-button:hover {
@@ -23,5 +24,12 @@
 @media screen and (max-width: 578px) {
 	.edit-form__submit-button {
 		margin-top: 45px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.edit-form__submit-button {
+		font-size: 14px;
+	line-height: 17px;
 	}
 }

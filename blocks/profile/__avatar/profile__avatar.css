@@ -4,7 +4,7 @@
 	overflow: hidden;
 	object-position: center;
 	object-fit: cover;
-	max-width: 168px;
+	max-width: 120px;
 }
 
 @media screen and (max-width: 578px) {

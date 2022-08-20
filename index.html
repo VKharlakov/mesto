@@ -11,67 +11,56 @@
 			<img class="header__logo" src="./images/logo/logo.svg" alt="Логотип Mesto">
 		</header>
 		<main class="content">
-			<section class="edit-form">
-				<button class="edit-form__close-button"></button>
-				<div class="edit-form__popup">
-					<h1 class="edit-form__title">Редактировать профиль</h1>
-					<input type="text" class="edit-form__input edit-form__input_type_name" placeholder="Введите имя" name="text">
-					<input type="text" class="edit-form__input edit-form__input_type_brief" placeholder="Опишите себя" name="text">
-					<input  class="edit-form__submit-button" type="submit" value="Сохранить">
-				</div>
-			</section>
 			<section class="profile">
 				<img class="profile__avatar" src="./images/profile/avatar.jpg" alt="Ваш аватар">
 				<div class="profile__info">
 					<h1 class="profile__name">Жак-Ив Кусто</h1>
-					<button class="profile__edit-button"></button>
-					<h2 class="profile__brief">Исследователь океана</h2>
+					<button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
+					<p class="profile__brief">Исследователь океана</p>
 				</div>
-				<button class="profile__add-button">
-					<img class="profile__add-button-symbol" src="./images/profile/add-button-symbol.svg" alt="Кнопка">
-				</button>
+				<button class="profile__add-button" type="button" aria-label="Добавить"></button>
 			</section>
 			<section class="elements">
 				<div class="elements__element">
 					<img class="elements__photo" src="./images/elements/moscow-1.jpg" alt="Фотография места">
 					<div class="elements__info">
-						<h1 class="elements__title">Москва</h1>
-						<button class="elements__like-button"></button>
+						<h2 class="elements__title">Москва</h2>
+						<button class="elements__like-button" type="button" aria-label="Оценить"></button>
 					</div>
 				</div>
 				<div class="elements__element">
 					<img class="elements__photo" src="./images/elements/tula-2.jpg" alt="Фотография места">
 					<div class="elements__info">
-						<h1 class="elements__title">Тула</h1>
-						<button class="elements__like-button"></button>
+						<h2 class="elements__title">Тула</h2>
+						<button class="elements__like-button" type="button" aria-label="Оценить"></button>
 					</div>
 				</div>
 				<div class="elements__element">
 					<img class="elements__photo" src="./images/elements/dubrovitsy-3.jpg" alt="Фотография места">
 					<div class="elements__info">
-						<h1 class="elements__title">Дубровицы</h1>
-						<button class="elements__like-button"></button>
+						<h2 class="elements__title">Дубровицы</h2>
+						<button class="elements__like-button" type="button" aria-label="Оценить"></button>
 					</div>
 				</div>
 				<div class="elements__element">
 					<img class="elements__photo" src="./images/elements/borodino-4.jpg" alt="Фотография места">
 					<div class="elements__info">
-						<h1 class="elements__title">Бородино</h1>
-						<button class="elements__like-button"></button>
+						<h2 class="elements__title">Бородино</h2>
+						<button class="elements__like-button" type="button" aria-label="Оценить"></button>
 					</div>
 				</div>
 				<div class="elements__element">
 					<img class="elements__photo" src="./images/elements/bogolyobovo-5.jpg" alt="Фотография места">
 					<div class="elements__info">
-						<h1 class="elements__title">Боголюбово</h1>
-						<button class="elements__like-button"></button>
+						<h2 class="elements__title">Боголюбово</h2>
+						<button class="elements__like-button" type="button" aria-label="Оценить"></button>
 					</div>
 				</div>
 				<div class="elements__element">
 					<img class="elements__photo" src="./images/elements/nnovgorod-6.jpg" alt="Фотография места">
 					<div class="elements__info">
-						<h1 class="elements__title">Нижний Новгород</h1>
-						<button class="elements__like-button"></button>
+						<h2 class="elements__title">Нижний Новгород</h2>
+						<button class="elements__like-button" type="button" aria-label="Оценить"></button>
 					</div>
 				</div>
 			</section>
@@ -79,6 +68,17 @@
 		<footer class="footer">
 			<p class="footer__copyright">&copy;&nbsp;2022 Mesto Russia // Kharlakov Vitaly</p>
 		</footer>
+		<div class="edit-form">
+				<button class="edit-form__close-button" type="button" aria-label="Закрыть"></button>
+				<div class="edit-form__popup">
+					<h2 class="edit-form__title">Редактировать профиль</h2>
+					<form class="edit-form__inputs" name="inputs">
+						<input type="text" class="edit-form__input edit-form__input_type_name" placeholder="Введите имя" name="name">
+						<input type="text" class="edit-form__input edit-form__input_type_brief" placeholder="Опишите себя" name="brief">
+						<button class="edit-form__submit-button" type="submit" aria-label="Сохранить">Сохранить</button>
+					</form>
+				</div>
+			</div>
 		<script src="./scripts/index.js"></script>
 	</body>
 </html>

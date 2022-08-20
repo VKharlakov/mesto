@@ -3,12 +3,10 @@
 	width: 100%;
 	max-width: 430px;
 	height: 100%;
-	max-height: 330px;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
 	background-color: white;
 	box-sizing: border-box;
 	transition: .2s;
@@ -18,6 +16,5 @@
 	.edit-form__popup {
 		padding: 25px 22px;
 		max-width: 282px;
-		max-height: 322px;
 	}
 }

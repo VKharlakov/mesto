@@ -14,10 +14,9 @@
 
 @media screen and (max-width: 400px) {
 	.profile__brief {
-		font-weight: 400;
 		font-size: 14px;
 		line-height: 17px;
-		margin-top: 14px;
+		margin-top: 10px;
 		max-width: 282px;
 	}
 }

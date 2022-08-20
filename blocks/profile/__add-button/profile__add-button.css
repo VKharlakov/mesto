@@ -4,12 +4,16 @@
 	width: 100%;
 	max-width: 150px;
 	padding: 0;
-	background-color: black;
+	background-color: transparent;
 	border-style: none;
 	border: 2px solid #FFFFFF;
 	height: 50px;
 	transition: .2s;
 	flex-grow: 1;
+	background-image: url(../../../images/profile/add-button-symbol.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -26,5 +30,11 @@
 @media screen and (max-width: 728px) and (min-width: 578px) {
 	.profile__add-button {
 		margin-top: 36px;
+	}
+}
+
+@media screen and (max-width: 578px) {
+	.profile__add-button {
+		background-size: 17px;
 	}
 }

@@ -7,4 +7,17 @@
 	bottom: 0;
 	left: 0;
 	background-color: rgba(0, 0, 0, .5);
+	justify-content: center;
+    align-items: center;
+    grid-template-columns: 500px;
+    grid-template-rows: 32px 330px;
+    justify-items: center;
+    align-content: center;
+}
+
+@media screen and (max-width: 578px) {
+	.edit-form_opened {
+		grid-template-columns: 282px;
+    	grid-template-rows: 20px 322px;
+	}
 }
