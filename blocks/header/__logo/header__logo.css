@@ -4,9 +4,14 @@
 	transition: .2s;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 930px) and (min-width: 319px) {
 	.header__logo {
 		padding-left: 27px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.header__logo {
 		padding-bottom: 31px;
 		max-width: 104px;
 	}

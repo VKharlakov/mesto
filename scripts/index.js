@@ -11,7 +11,6 @@ function showPopUp() {
 	inputName.value = profileName.textContent
 	inputBrief.value = profileBrief.textContent
 	popUp.classList.add('edit-form_opened')
-	inputName.focus()
 }
 
 function hidePopUp() {

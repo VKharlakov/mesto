@@ -8,8 +8,8 @@
 	line-height: 22px;
 	transition: .2s;
 	text-overflow: ellipsis;
-  	white-space: nowrap;
-  	overflow: hidden;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 @media screen and (max-width: 400px) {
