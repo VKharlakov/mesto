@@ -3,4 +3,10 @@
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	transition: .4s ease-out;
+}
+
+.elements__element:hover {
+	cursor: pointer;
+	transform: scale(1.04);
 }

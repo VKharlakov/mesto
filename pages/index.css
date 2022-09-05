@@ -19,6 +19,11 @@
 @import url(../blocks/edit-form/__input/_type/edit-form__input_type_brief.css);
 @import url(../blocks/edit-form/__submit-button/edit-form__submit-button.css);
 @import url(../blocks/edit-form/__close-button/edit-form__close-button.css);
+@import url(../blocks/edit-form/__fullscreen/edit-form__fullscreen.css);
+@import url(../blocks/edit-form/__image-fullscreen/edit-form__image-fullscreen.css);
+@import url(../blocks/edit-form/__image-subtitle/edit-form__image-subtitle.css);
+@import url(../blocks/edit-form/_type/edit-form_type_fullscreen-photos.css);
+
 
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
