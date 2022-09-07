@@ -1,28 +1,39 @@
-let popUp = document.querySelectorAll('.edit-form')
-let popUpForm = document.querySelectorAll('.edit-form__inputs')
-let closeButton = document.querySelectorAll('.edit-form__close-button')
-let editButton = document.querySelector('.profile__edit-button')
-let profileName = document.querySelector('.profile__name')
-let profileBrief = document.querySelector('.profile__brief')
-let inputName = document.querySelector('.edit-form__input_type_name')
-let inputBrief = document.querySelector('.edit-form__input_type_brief')
-let addButton = document.querySelector('.profile__add-button')
-let photoElement = document.querySelectorAll('.elements__element')
-let photoUploadedName = document.querySelector('.elements__title')
-let photoUploadedLink = document.querySelector('.elements__photo')
+const popUp = document.querySelectorAll('.edit-form')
+const popUpForm = document.querySelectorAll('.edit-form__inputs')
+const closeButton = document.querySelectorAll('.edit-form__close-button')
+const editButton = document.querySelector('.profile__edit-button')
+const profileName = document.querySelector('.profile__name')
+const profileBrief = document.querySelector('.profile__brief')
+const inputName = document.querySelector('.edit-form__input_type_name')
+const inputBrief = document.querySelector('.edit-form__input_type_brief')
+const addButton = document.querySelector('.profile__add-button')
+const photoElement = document.querySelectorAll('.elements__element')
+const photoUploadedName = document.querySelector('.elements__title')
+const photoUploadedLink = document.querySelector('.elements__photo')
+const cardsList = document.querySelector('.elements__list')
+const cardTemplate = document.querySelector('.elements__element-template').content
 
+// Функция вызова попапа
 function showPopUp(editForm) {
 	if (editForm.id === 'edit-profile') {
 		inputName.value = profileName.textContent
 		inputBrief.value = profileBrief.textContent
+
+//При вызове попапа добавления фотографий инпуты очищаются
+	} else if (editForm.id === 'edit-photos') {
+		document.querySelector('.edit-form__input_type_photo-title').value = ''
+		document.querySelector('.edit-form__input_type_photo-link').value = ''
 	} else {}
+
 	editForm.classList.add('edit-form_opened')
 }
 
+// Функция закрытия попапа
 function hidePopUp(editForm) {
 	editForm.classList.remove('edit-form_opened')
 }
 
+// Функция сохранения и отправки формы
 function submitForm(editForm, event) {
 	event.preventDefault();
 
@@ -35,29 +46,29 @@ function submitForm(editForm, event) {
 		addCard(document.querySelector('.edit-form__input_type_photo-link').value, document.querySelector('.edit-form__input_type_photo-title').value)
 		hidePopUp(editForm)
 	} else {}
-	
 }
 
+// Слушатель события для вызова попапа редактирования имени и описания в профиле
 editButton.addEventListener('click', function() {
 	showPopUp(popUp[0]);
 })
+
+// Слушатель события для вызова попапа добавления фотографий
 addButton.addEventListener('click', function() {
 	showPopUp(popUp[1]);
 })
 
+// Функция со слушателем для кнопки закрытия попапа
 closeButton.forEach(function(button) {
 	button.addEventListener('click', function(event) {
 	hidePopUp(event.target.closest('div'))
 })})
 
+// Функция со слушателем для отправки формы
 popUpForm.forEach(function(editForm) {
 	editForm.addEventListener('submit', function(event) {
 	submitForm(event.target.closest('div').parentNode.closest('div'), event)
 })})
-
-const cardsList = document.querySelector('.elements__list')
-const cardTemplate = document.querySelector('.elements__element-template').content
-
 
 // Функция добавления новой фотографии
 function addCard(url, title) {

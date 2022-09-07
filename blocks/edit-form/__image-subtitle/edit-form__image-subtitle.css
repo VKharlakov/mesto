@@ -1,8 +1,12 @@
 .edit-form__image-subtitle {
+	max-width: 350px;
 	font-weight: 400;
 	font-size: 12px;
 	line-height: 15px;
 	margin: 0;
 	padding: 0;
 	margin-top: 5px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
