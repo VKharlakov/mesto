@@ -1,0 +1,9 @@
+.edit-form__close-button_type_photo {
+	margin-right: -30px;
+}
+
+@media screen and (max-width: 578px) {
+	.edit-form__close-button_type_photo {
+		margin-right: unset;
+	}
+}

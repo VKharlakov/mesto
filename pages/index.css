@@ -19,6 +19,7 @@
 @import url(../blocks/edit-form/__input/_type/edit-form__input_type_brief.css);
 @import url(../blocks/edit-form/__submit-button/edit-form__submit-button.css);
 @import url(../blocks/edit-form/__close-button/edit-form__close-button.css);
+@import url(../blocks/edit-form/__close-button/_type/edit-form__close-button_type_photo.css);
 @import url(../blocks/edit-form/__fullscreen/edit-form__fullscreen.css);
 @import url(../blocks/edit-form/__image-fullscreen/edit-form__image-fullscreen.css);
 @import url(../blocks/edit-form/__image-subtitle/edit-form__image-subtitle.css);
@@ -38,8 +39,11 @@
 @import url(../blocks/elements/__photo/elements__photo.css);
 @import url(../blocks/elements/__info/elements__info.css);
 @import url(../blocks/elements/__title/elements__title.css);
+@import url(../blocks/elements/__list/elements__list.css);
+@import url(../blocks/elements/__element-template/elements__element-template.css);
 @import url(../blocks/elements/__like-button/elements__like-button.css);
 @import url(../blocks/elements/__like-button/_active/elements__like-button_active.css);
+@import url(../blocks/elements/__delete-button/elements__delete-button.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

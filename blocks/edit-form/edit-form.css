@@ -1,6 +1,6 @@
 .edit-form {
 	z-index: 3;
-	display: none;
+	display: grid;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -13,11 +13,8 @@
 	grid-template-rows: 32px 330px;
 	justify-items: center;
 	align-content: center;
-}
 
-@media screen and (max-width: 578px) {
-	.edit-form_opened {
-		grid-template-columns: 282px;
-		grid-template-rows: 20px 322px;
-	}
+	visibility: hidden;
+	opacity: 0;
+	transition: all .2s ease-out;
 }

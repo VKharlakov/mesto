@@ -1,3 +1,12 @@
 .edit-form_opened {
 	display: grid;
+	visibility: visible;
+	opacity: 1;
+}
+
+@media screen and (max-width: 578px) {
+	.edit-form_opened {
+		grid-template-columns: 282px;
+		grid-template-rows: 20px 322px;
+	}
 }

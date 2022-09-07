@@ -1,10 +1,4 @@
 .elements {
-	display: grid;
-	width: 100%;
 	max-width: 880px;
-	grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
-	grid-template-rows: repeat(auto-fit, 361px);
-	grid-auto-rows: 361px;
-	grid-column-gap: 17px;
-	grid-row-gap: 20px;
+	width: 100%;
 }
