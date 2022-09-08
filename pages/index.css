@@ -9,21 +9,23 @@
 
 @import url(../blocks/content/content.css);
 
-@import url(../blocks/edit-form/edit-form.css);
-@import url(../blocks/edit-form/_opened/edit-form_opened.css);
-@import url(../blocks/edit-form/__popup/edit-form__popup.css);
-@import url(../blocks/edit-form/__inputs/edit-form__inputs.css);
-@import url(../blocks/edit-form/__title/edit-form__title.css);
-@import url(../blocks/edit-form/__input/edit-form__input.css);
-@import url(../blocks/edit-form/__input/_type/edit-form__input_type_name.css);
-@import url(../blocks/edit-form/__input/_type/edit-form__input_type_brief.css);
-@import url(../blocks/edit-form/__submit-button/edit-form__submit-button.css);
-@import url(../blocks/edit-form/__close-button/edit-form__close-button.css);
-@import url(../blocks/edit-form/__close-button/_type/edit-form__close-button_type_photo.css);
-@import url(../blocks/edit-form/__fullscreen/edit-form__fullscreen.css);
-@import url(../blocks/edit-form/__image-fullscreen/edit-form__image-fullscreen.css);
-@import url(../blocks/edit-form/__image-subtitle/edit-form__image-subtitle.css);
-@import url(../blocks/edit-form/_type/edit-form_type_fullscreen-photos.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_name.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_brief.css);
+@import url(../blocks/popup/__btn-submit/popup__btn-submit.css);
+@import url(../blocks/popup/__btn-close/popup__btn-close.css);
+@import url(../blocks/popup/__btn-close/_type/popup__btn-close_type_photo.css);
+@import url(../blocks/popup/__fullscreen/popup__fullscreen.css);
+@import url(../blocks/popup/__image-fullscreen/popup__image-fullscreen.css);
+@import url(../blocks/popup/__image-subtitle/popup__image-subtitle.css);
+@import url(../blocks/popup/_type/popup_type_edit-profile.css);
+@import url(../blocks/popup/_type/popup_type_add-photos.css);
+@import url(../blocks/popup/_type/popup_type_fullscreen-photos.css);
 
 
 @import url(../blocks/profile/profile.css);

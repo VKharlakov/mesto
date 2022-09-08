@@ -29,37 +29,37 @@
 		</footer>
 
 		<!-- Окно редактирования информации пользователя -->
-		<div class="edit-form" id="edit-profile">
-				<button class="edit-form__close-button" type="button" aria-label="Закрыть"></button>
-				<div class="edit-form__popup">
-					<h2 class="edit-form__title">Редактировать профиль</h2>
-					<form class="edit-form__inputs" name="inputs">
-						<input type="text" class="edit-form__input edit-form__input_type_name" placeholder="Введите имя" name="name">
-						<input type="text" class="edit-form__input edit-form__input_type_brief" placeholder="Опишите себя" name="brief">
-						<button class="edit-form__submit-button" type="submit" aria-label="Сохранить">Сохранить</button>
+		<div class="popup popup_type_edit-profile" id="edit-profile">
+				<button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
+				<div class="popup__container">
+					<h2 class="popup__title">Редактировать профиль</h2>
+					<form class="popup__form" name="form">
+						<input type="text" class="popup__input popup__input_type_name" placeholder="Введите имя" name="name">
+						<input type="text" class="popup__input popup__input_type_brief" placeholder="Опишите себя" name="brief">
+						<button class="popup__btn-submit" type="submit" aria-label="Сохранить">Сохранить</button>
 					</form>
 				</div>
 			</div>
 
 			<!-- Окно добавления фотографий -->
-			<div class="edit-form" id="edit-photos">
-				<button class="edit-form__close-button" type="button" aria-label="Закрыть"></button>
-				<div class="edit-form__popup">
-					<h2 class="edit-form__title">Новое место</h2>
-					<form class="edit-form__inputs">
-						<input type="text" class="edit-form__input edit-form__input_type_photo-title" placeholder="Введите название места" name="mesto-name">
-						<input type="text" class="edit-form__input edit-form__input_type_photo-link" placeholder="Ссылка на фотографию" name="mesto-link">
-						<button class="edit-form__submit-button" type="submit" aria-label="Создать">Создать</button>
+			<div class="popup popup_type_add-photos" id="add-photos">
+				<button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
+				<div class="popup__container">
+					<h2 class="popup__title">Новое место</h2>
+					<form class="popup__form">
+						<input type="text" class="popup__input popup__input_type_photo-title" placeholder="Введите название места" name="mesto-name">
+						<input type="text" class="popup__input popup__input_type_photo-link" placeholder="Ссылка на фотографию" name="mesto-link">
+						<button class="popup__btn-submit" type="submit" aria-label="Создать">Создать</button>
 					</form>
 				</div>
 			</div>
 
 			<!-- Окно с полноэкранным режимом фотографий -->
-			<div class="edit-form edit-form_type_fullscreen-photos" id="fullscreen-photos">
-				<button class="edit-form__close-button edit-form__close-button_type_photo" type="button" aria-label="Закрыть"></button>
-				<div class="edit-form__fullscreen">
-					<img class="edit-form__image-fullscreen" src="#" alt="Полноразмерная фотография места">
-					<p class="edit-form__image-subtitle"></p>
+			<div class="popup popup_type_fullscreen-photos" id="fullscreen-photos">
+				<button class="popup__btn-close popup__btn-close_type_photo" type="button" aria-label="Закрыть"></button>
+				<div class="popup__fullscreen">
+					<img class="popup__image-fullscreen" src="#" alt="Полноразмерная фотография места">
+					<p class="popup__image-subtitle"></p>
 				</div>
 			</div>
 
@@ -67,7 +67,7 @@
 			<template class="elements__element-template">
 				<li class="elements__element">
 					<button class="elements__delete-button" type="button" aria-label="Удалить"></button>
-					<img class="elements__photo" src="#" alt="Фотография места">
+					<img class="elements__photo" src="#" alt="">
 					<div class="elements__info">
 						<h2 class="elements__title"></h2>
 						<button class="elements__like-button" type="button" aria-label="Оценить"></button>

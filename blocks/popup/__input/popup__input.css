@@ -1,4 +1,4 @@
-.edit-form__input {
+.popup__input {
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -12,10 +12,10 @@
 	line-height: 17px;
 }
 
-.edit-form__input:focus {
+.popup__input:focus {
 	outline: none;
 }
 
-.edit-form__input:first-of-type {
+.popup__input:first-of-type {
 	margin-bottom: 30px;
 }

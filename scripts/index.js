@@ -1,72 +1,97 @@
-const popUp = document.querySelectorAll('.edit-form')
-const popUpForm = document.querySelectorAll('.edit-form__inputs')
-const closeButton = document.querySelectorAll('.edit-form__close-button')
+const popUpList = document.querySelectorAll('.popup')
+const popUpFormList = document.querySelectorAll('.popup__form')
+const closeButtonList = document.querySelectorAll('.popup__btn-close')
 const editButton = document.querySelector('.profile__edit-button')
 const profileName = document.querySelector('.profile__name')
 const profileBrief = document.querySelector('.profile__brief')
-const inputName = document.querySelector('.edit-form__input_type_name')
-const inputBrief = document.querySelector('.edit-form__input_type_brief')
+const inputName = document.querySelector('.popup__input_type_name')
+const inputBrief = document.querySelector('.popup__input_type_brief')
 const addButton = document.querySelector('.profile__add-button')
-const photoElement = document.querySelectorAll('.elements__element')
+const photoElementList = document.querySelectorAll('.elements__element')
 const photoUploadedName = document.querySelector('.elements__title')
 const photoUploadedLink = document.querySelector('.elements__photo')
-const cardsList = document.querySelector('.elements__list')
+const cardsContainer = document.querySelector('.elements__list')
 const cardTemplate = document.querySelector('.elements__element-template').content
+const addPhotosPopUp = document.querySelector('.popup_type_add-photos')
+const editProfilePopUp = document.querySelector('.popup_type_edit-profile')
+const photoLink = document.querySelector('.popup__input_type_photo-link').value
+const photoTitle = document.querySelector('.popup__input_type_photo-title').value
 
-// Функция вызова попапа
-function showPopUp(editForm) {
-	if (editForm.id === 'edit-profile') {
-		inputName.value = profileName.textContent
-		inputBrief.value = profileBrief.textContent
+// Общая функция вызова попапа
+function showPopUp(popup) {
+	popup.classList.add('popup_opened')
+}
 
-//При вызове попапа добавления фотографий инпуты очищаются
-	} else if (editForm.id === 'edit-photos') {
-		document.querySelector('.edit-form__input_type_photo-title').value = ''
-		document.querySelector('.edit-form__input_type_photo-link').value = ''
-	} else {}
+// Функция вызова попапа редактирования профиля
+function openEditProfilePopUp () {
+	inputName.value = profileName.textContent
+	inputBrief.value = profileBrief.textContent
 
-	editForm.classList.add('edit-form_opened')
+	showPopUp(editProfilePopUp)
+}
+
+// Функция вызова попапа добавления фото
+function openAddPhotosPopUp () {
+	document.querySelector('.popup__input_type_photo-title').value = ''
+	document.querySelector('.popup__input_type_photo-link').value = ''
+
+	showPopUp(addPhotosPopUp)
 }
 
 // Функция закрытия попапа
-function hidePopUp(editForm) {
-	editForm.classList.remove('edit-form_opened')
+function hidePopUp(popup) {
+	popup.classList.remove('popup_opened')
 }
 
 // Функция сохранения и отправки формы
-function submitForm(editForm, event) {
+function submitForm(popup, event) {
 	event.preventDefault();
 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // Проверка ID формы, чтобы изменить имя и описание в профиле
-	if (editForm.id === 'edit-profile') {
+	if (popup.id === 'edit-profile') {
 		profileName.textContent = inputName.value
 		profileBrief.textContent = inputBrief.value
-		hidePopUp(editForm)
-	} else if (editForm.id === 'edit-photos') {
-		addCard(document.querySelector('.edit-form__input_type_photo-link').value, document.querySelector('.edit-form__input_type_photo-title').value)
-		hidePopUp(editForm)
+		hidePopUp(popup)
+	} else if (popup.id === 'add-photos') {
+		addCard(document.querySelector('.popup__input_type_photo-link').value, document.querySelector('.popup__input_type_photo-title').value)
+		hidePopUp(popup)
 	} else {}
 }
 
+function submitEditProfileForm (event) {
+	profileName.textContent = inputName.value
+	profileBrief.textContent = inputBrief.value
+
+	hidePopUp(editProfilePopUp)
+}
+
+function submitAddPhotosForm (event) {
+	addCard(photoLink, photoTitle)
+
+	hidePopUp(addPhotosPopUp)
+}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 // Слушатель события для вызова попапа редактирования имени и описания в профиле
 editButton.addEventListener('click', function() {
-	showPopUp(popUp[0]);
+	openEditProfilePopUp();
 })
 
 // Слушатель события для вызова попапа добавления фотографий
 addButton.addEventListener('click', function() {
-	showPopUp(popUp[1]);
+	openAddPhotosPopUp();
 })
 
 // Функция со слушателем для кнопки закрытия попапа
-closeButton.forEach(function(button) {
+closeButtonList.forEach(function(button) {
 	button.addEventListener('click', function(event) {
 	hidePopUp(event.target.closest('div'))
 })})
 
 // Функция со слушателем для отправки формы
-popUpForm.forEach(function(editForm) {
-	editForm.addEventListener('submit', function(event) {
+popUpFormList.forEach(function(popup) {
+	popup.addEventListener('submit', function(event) {
 	submitForm(event.target.closest('div').parentNode.closest('div'), event)
 })})
 
@@ -74,9 +99,10 @@ popUpForm.forEach(function(editForm) {
 function addCard(url, title) {
 	const cardElement = cardTemplate.querySelector('.elements__element').cloneNode(true)
 
-	cardsList.prepend(cardElement)
+	cardsContainer.prepend(cardElement)
 
 	cardElement.querySelector('.elements__photo').src = url
+	cardElement.querySelector('.elements__photo').alt = `На фото: ${title}`
 	cardElement.querySelector('.elements__title').textContent = title
 
 // Заполнение пустого поля имени карточки
@@ -86,9 +112,9 @@ function addCard(url, title) {
 
 // Слушатель события для открытия фотографии в полноэкранном режиме
 	cardElement.addEventListener('click', function() {
-		document.querySelector('.edit-form__image-fullscreen').src = event.target.closest('.elements__element').querySelector('img').src
-		document.querySelector('.edit-form__image-subtitle').textContent = event.target.closest('.elements__element').querySelector('.elements__title').textContent
-		showPopUp(popUp[2])
+		document.querySelector('.popup__image-fullscreen').src = event.target.closest('.elements__element').querySelector('img').src
+		document.querySelector('.popup__image-subtitle').textContent = event.target.closest('.elements__element').querySelector('.elements__title').textContent
+		showPopUp(popUpList[2])
 	})
 
 //Слушатель события для кнопки "Удалить"
