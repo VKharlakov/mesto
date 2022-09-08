@@ -1,5 +1,3 @@
-const popUpList = document.querySelectorAll('.popup')
-const popUpFormList = document.querySelectorAll('.popup__form')
 const closeButtonList = document.querySelectorAll('.popup__btn-close')
 const editButton = document.querySelector('.profile__edit-button')
 const profileName = document.querySelector('.profile__name')
@@ -14,8 +12,11 @@ const cardsContainer = document.querySelector('.elements__list')
 const cardTemplate = document.querySelector('.elements__element-template').content
 const addPhotosPopUp = document.querySelector('.popup_type_add-photos')
 const editProfilePopUp = document.querySelector('.popup_type_edit-profile')
-const photoLink = document.querySelector('.popup__input_type_photo-link').value
-const photoTitle = document.querySelector('.popup__input_type_photo-title').value
+const photoLink = document.querySelector('.popup__input_type_photo-link')
+const photoTitle = document.querySelector('.popup__input_type_photo-title')
+const editProfileForm = document.querySelector('#edit-profile-form')
+const addPhotosForm = document.querySelector('#add-photos-form')
+const popUpFullscreen = document.querySelector('#fullscreen-photos')
 
 // Общая функция вызова попапа
 function showPopUp(popup) {
@@ -43,37 +44,7 @@ function hidePopUp(popup) {
 	popup.classList.remove('popup_opened')
 }
 
-// Функция сохранения и отправки формы
-function submitForm(popup, event) {
-	event.preventDefault();
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Проверка ID формы, чтобы изменить имя и описание в профиле
-	if (popup.id === 'edit-profile') {
-		profileName.textContent = inputName.value
-		profileBrief.textContent = inputBrief.value
-		hidePopUp(popup)
-	} else if (popup.id === 'add-photos') {
-		addCard(document.querySelector('.popup__input_type_photo-link').value, document.querySelector('.popup__input_type_photo-title').value)
-		hidePopUp(popup)
-	} else {}
-}
-
-function submitEditProfileForm (event) {
-	profileName.textContent = inputName.value
-	profileBrief.textContent = inputBrief.value
-
-	hidePopUp(editProfilePopUp)
-}
-
-function submitAddPhotosForm (event) {
-	addCard(photoLink, photoTitle)
-
-	hidePopUp(addPhotosPopUp)
-}
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-// Слушатель события для вызова попапа редактирования имени и описания в профиле
+// Слушатель события для вызова попапа редактирования профиля
 editButton.addEventListener('click', function() {
 	openEditProfilePopUp();
 })
@@ -86,35 +57,45 @@ addButton.addEventListener('click', function() {
 // Функция со слушателем для кнопки закрытия попапа
 closeButtonList.forEach(function(button) {
 	button.addEventListener('click', function(event) {
-	hidePopUp(event.target.closest('div'))
+	hidePopUp(event.target.closest('.popup'))
 })})
 
-// Функция со слушателем для отправки формы
-popUpFormList.forEach(function(popup) {
-	popup.addEventListener('submit', function(event) {
-	submitForm(event.target.closest('div').parentNode.closest('div'), event)
-})})
+//Слушатель события с функцией отправки формы редактирования профиля
+editProfileForm.addEventListener('submit', function() {
+	event.preventDefault()
+	profileName.textContent = inputName.value
+	profileBrief.textContent = inputBrief.value
 
-// Функция добавления новой фотографии
-function addCard(url, title) {
+	hidePopUp(editProfilePopUp)
+})
+
+//Слушатель события с функцией отправки формы добавления фото
+addPhotosForm.addEventListener('submit', function() {
+	event.preventDefault()
+	renderCard(photoLink.value, photoTitle.value)
+	hidePopUp(addPhotosPopUp)
+})
+
+// Функция создания новой карточки
+function createCard(url, title) {
 	const cardElement = cardTemplate.querySelector('.elements__element').cloneNode(true)
+	const cardElementPhoto = cardElement.querySelector('.elements__photo')
+	const cardElementTitle = cardElement.querySelector('.elements__title')
 
-	cardsContainer.prepend(cardElement)
-
-	cardElement.querySelector('.elements__photo').src = url
-	cardElement.querySelector('.elements__photo').alt = `На фото: ${title}`
-	cardElement.querySelector('.elements__title').textContent = title
+	cardElementPhoto.src = url
+	cardElementPhoto.alt = `На фото: ${title}`
+	cardElementTitle.textContent = title
 
 // Заполнение пустого поля имени карточки
 	if (title === '') {
-		cardElement.querySelector('.elements__title').textContent = 'Без названия'
+		cardElementTitle.textContent = 'Без названия'
 	}
 
 // Слушатель события для открытия фотографии в полноэкранном режиме
-	cardElement.addEventListener('click', function() {
-		document.querySelector('.popup__image-fullscreen').src = event.target.closest('.elements__element').querySelector('img').src
-		document.querySelector('.popup__image-subtitle').textContent = event.target.closest('.elements__element').querySelector('.elements__title').textContent
-		showPopUp(popUpList[2])
+	cardElementPhoto.addEventListener('click', function() {
+		document.querySelector('.popup__image-fullscreen').src = cardElementPhoto.src
+		document.querySelector('.popup__image-subtitle').textContent = cardElementTitle.textContent
+		showPopUp(popUpFullscreen)
 	})
 
 //Слушатель события для кнопки "Удалить"
@@ -128,37 +109,10 @@ function addCard(url, title) {
 		event.target.classList.toggle('elements__like-button_active')
 		event.stopPropagation()
 	})
+	return cardElement
 }
 
-// Массив с дефолтными фотографиями для заполнения пустой страницы
-const defaultCardsArray = [
-	{
-	'url': './images/elements/nnovgorod-6.jpg',
-	'title': 'Нижний Новгород'
-	},
-	{
-	'url': './images/elements/bogolyobovo-5.jpg',
-	'title': 'Боголюбово'
-	},
-	{
-	'url': './images/elements/borodino-4.jpg',
-	'title': 'Бородино'
-	},
-	{
-	'url': './images/elements/dubrovitsy-3.jpg',
-	'title': 'Дубровицы'
-	},
-	{
-	'url': './images/elements/tula-2.jpg',
-	'title': 'Тула'
-	},
-	{
-	'url': './images/elements/moscow-1.jpg',
-	'title': 'Москва'
-	}
-]
-
-//Функция для добавления дефолтных фотографий на сайт при загрузке
-defaultCardsArray.forEach(function(card) {
-	addCard(card.url, card.title)
-})
+//Функция добавления новой карточки
+function renderCard (url, title) {
+	cardsContainer.prepend(createCard(url, title))
+}
