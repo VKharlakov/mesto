@@ -1,7 +1,7 @@
 .profile__brief {
 	margin: 0;
 	width: 100%;
-	max-width: 336px;
+	max-width: 500px;
 	margin-top: 16px;
 	font-weight: 400;
 	font-size: 18px;
@@ -10,6 +10,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	grid-area: brief;
 }
 
 @media screen and (max-width: 400px) {

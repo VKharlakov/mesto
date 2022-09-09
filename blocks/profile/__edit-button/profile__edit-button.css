@@ -4,23 +4,17 @@
 	height: 24px;
 	background-position: center;
 	background-repeat: no-repeat;
-	margin: auto 0 auto 18px;
 	padding: 0;
 	border-style: none;
 	background-color: transparent;
 	border: 1px solid #FFFFFF;
 	transition: .2s;
+	grid-area: edit-button;
 }
 
 .profile__edit-button:hover {
 	opacity: .6;
 	cursor: pointer;
-}
-
-@media screen and (max-width: 578px) {
-	.profile__edit-button {
-		margin: auto 0 auto 10px;
-	}
 }
 
 @media screen and (max-width: 400px) {

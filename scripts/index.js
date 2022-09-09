@@ -17,6 +17,10 @@ const photoTitle = document.querySelector('.popup__input_type_photo-title')
 const editProfileForm = document.querySelector('#edit-profile-form')
 const addPhotosForm = document.querySelector('#add-photos-form')
 const popUpFullscreen = document.querySelector('#fullscreen-photos')
+const popUpPhotoTitle = document.querySelector('.popup__input_type_photo-title')
+const popUpPhotoLink = document.querySelector('.popup__input_type_photo-link')
+const fullscreenImage = document.querySelector('.popup__image-fullscreen')
+const fullscreenImageSubtitle = document.querySelector('.popup__image-subtitle')
 
 // Общая функция вызова попапа
 function showPopUp(popup) {
@@ -33,8 +37,8 @@ function openEditProfilePopUp () {
 
 // Функция вызова попапа добавления фото
 function openAddPhotosPopUp () {
-	document.querySelector('.popup__input_type_photo-title').value = ''
-	document.querySelector('.popup__input_type_photo-link').value = ''
+	popUpPhotoTitle.value = ''
+	popUpPhotoLink.value = ''
 
 	showPopUp(addPhotosPopUp)
 }
@@ -93,8 +97,9 @@ function createCard(url, title) {
 
 // Слушатель события для открытия фотографии в полноэкранном режиме
 	cardElementPhoto.addEventListener('click', function() {
-		document.querySelector('.popup__image-fullscreen').src = cardElementPhoto.src
-		document.querySelector('.popup__image-subtitle').textContent = cardElementTitle.textContent
+		fullscreenImage.src = cardElementPhoto.src
+		fullscreenImage.alt = `На фото: ${title}`
+		fullscreenImageSubtitle.textContent = cardElementTitle.textContent
 		showPopUp(popUpFullscreen)
 	})
 

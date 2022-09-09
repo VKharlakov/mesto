@@ -1,13 +1,20 @@
 .profile__info {
-	max-width: 336px;
+	max-width: 920px;
+	display: grid;
+	align-items: baseline;
 	align-self: center;
-	display: flex;
-	flex-grow: 1;
-	flex-wrap: wrap;
+	grid-template-columns: 1fr 24px;
+	grid-auto-rows: max-content;
+	column-gap: 17px;
+	grid-template-areas:
+		"name edit-button"
+		"brief brief";
 }
 
 @media screen and (max-width: 578px) {
 	.profile__info {
+		grid-template-columns: 1fr 17px;
+		column-gap: 10px;
 		justify-content: center;
 		margin-bottom: 36px;
 	}
