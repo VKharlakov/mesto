@@ -21,10 +21,12 @@ const popUpPhotoTitle = document.querySelector('.popup__input_type_photo-title')
 const popUpPhotoLink = document.querySelector('.popup__input_type_photo-link')
 const fullscreenImage = document.querySelector('.popup__image-fullscreen')
 const fullscreenImageSubtitle = document.querySelector('.popup__image-subtitle')
+const body = document.querySelector('.page')
 
 // Общая функция вызова попапа
 function showPopUp(popup) {
 	popup.classList.add('popup_opened')
+	body.addEventListener('keydown', handleEscClose)
 }
 
 // Функция вызова попапа редактирования профиля
@@ -46,6 +48,7 @@ function openAddPhotosPopUp () {
 // Функция закрытия попапа
 function hidePopUp(popup) {
 	popup.classList.remove('popup_opened')
+	body.removeEventListener('keydown', handleEscClose)
 }
 
 // Слушатель события для вызова попапа редактирования профиля
@@ -121,8 +124,6 @@ function createCard(url, title) {
 function renderCard (url, title) {
 	cardsContainer.prepend(createCard(url, title))
 }
-
-
 
 const formList = Array.from(document.querySelectorAll('.popup__form'))
 
@@ -202,31 +203,34 @@ function hasValidInput (inputList) {
 const popUpList = Array.from(document.querySelectorAll('.popup'))
 
 //Вешаю слушатели на весь попап
-popUpList.forEach(function(popUpElement) {
-	popUpElement.addEventListener('keydown', function(event) {
-		if (event.key === 'Escape') {
-		console.log('working')
-		}
-	})
-})
+// popUpList.forEach(function(popUpElement) {
+// 	popUpElement.addEventListener('keydown', function(event) {
+// 		if (event.key === 'Escape') {
+// 		console.log('working')
+// 		}
+// 	})
+// })
 
 //Функция закрытия попапа на Esc
-// function handleEscClose (event) {
-// 	if (event.key === 'Escape') {
-// 		console.log('working')
-// 	}
-// }
+function handleEscClose (event) {
+	popUpList.forEach(function(popUpElement){
+		if (event.key === 'Escape') {
+		hidePopUp(popUpElement)
+	}
+	})
+}
 
 //Функция закрытия попапа на клик
-// function closePopUpOnClick () {
-	
+function closePopUpOnClick () {
+	popUpList.forEach(function(popUpElement){
+		popUpElement.addEventListener('click', function(element) {
+			if (element.target.id === 'edit-profile' || element.target.id === 'add-photos' || element.target.id === 'fullscreen-photos') {
+				popUpElement.classList.remove('popup_opened')
+			}
+		})
+	})
+}
 
-// 	popUpList.forEach(function(popUpElement){
-// 		popUpElement.addEventListener('click', function() {
-// 			popUpElement.classList.remove('popup_opened')
-// 		})
-// 	})
-// }
 
-// closePopUpOnClick()
+closePopUpOnClick()
 setFormValidListener()
