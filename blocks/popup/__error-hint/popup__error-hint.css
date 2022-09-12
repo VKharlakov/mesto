@@ -1,0 +1,23 @@
+.popup__error-hint {
+	visibility: hidden;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 15px;
+	color: red;
+	position: absolute;
+	top: 44%;
+	left: 8%;
+}
+
+.popup__error-hint:last-of-type {
+	top: 61%;
+}
+
+@media screen and (max-width: 578px) {
+	.popup__error-hint {
+		top: 46%;
+	}
+	.popup__error-hint:last-of-type {
+		top: 63%;
+	}
+}

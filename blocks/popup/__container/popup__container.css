@@ -10,6 +10,7 @@
 	background-color: white;
 	box-sizing: border-box;
 	transition: .2s;
+	position: relative;
 }
 
 @media screen and (max-width: 578px) {

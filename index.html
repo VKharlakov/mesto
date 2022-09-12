@@ -33,9 +33,11 @@
 				<button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
 				<div class="popup__container">
 					<h2 class="popup__title">Редактировать профиль</h2>
-					<form class="popup__form" id="edit-profile-form" name="form">
-						<input type="text" class="popup__input popup__input_type_name" placeholder="Введите имя" name="name">
-						<input type="text" class="popup__input popup__input_type_brief" placeholder="Опишите себя" name="brief">
+					<form class="popup__form" id="edit-profile-form" name="form" novalidate>
+						<input type="text" class="popup__input popup__input_type_name" id="input-name" placeholder="Введите имя" name="name" minlength="2" maxlength="40" type="text" required>
+						<span id="input-name-error" class="popup__error-hint"></span>
+						<input type="text" class="popup__input popup__input_type_brief" id="input-brief"placeholder="Опишите себя" name="brief" minlength="2" maxlength="200" type="text" required>
+						<span id="input-brief-error" class="popup__error-hint"></span>
 						<button class="popup__btn-submit" type="submit" aria-label="Сохранить">Сохранить</button>
 					</form>
 				</div>
@@ -46,9 +48,11 @@
 				<button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
 				<div class="popup__container">
 					<h2 class="popup__title">Новое место</h2>
-					<form class="popup__form" id="add-photos-form">
-						<input type="text" class="popup__input popup__input_type_photo-title" placeholder="Введите название места" name="mesto-name">
-						<input type="text" class="popup__input popup__input_type_photo-link" placeholder="Ссылка на фотографию" name="mesto-link">
+					<form class="popup__form" id="add-photos-form" novalidate>
+						<input class="popup__input popup__input_type_photo-title" placeholder="Введите название места"name="mesto-name" id="mesto-name" minlength="2" maxlength="30" type="text" required>
+						<span class="popup__error-hint" id="mesto-name-error"></span>
+						<input class="popup__input popup__input_type_photo-link" placeholder="Ссылка на фотографию" name="mesto-link" id="mesto-link" type="url" required>
+						<span class="popup__error-hint" id="mesto-link-error"></span>
 						<button class="popup__btn-submit" type="submit" aria-label="Создать">Создать</button>
 					</form>
 				</div>

@@ -121,3 +121,112 @@ function createCard(url, title) {
 function renderCard (url, title) {
 	cardsContainer.prepend(createCard(url, title))
 }
+
+
+
+const formList = Array.from(document.querySelectorAll('.popup__form'))
+
+//Установка слушателей на поля ввода и вызов функции проверки полей ввода на валидность
+function setInputValidListener (formElement) {
+	const inputList = Array.from(formElement.querySelectorAll('.popup__input'))
+
+	toggleButtonState(inputList, formElement)
+
+	inputList.forEach(function(inputElement) {
+		inputElement.addEventListener('input', function(event) {
+			checkInputValidity(inputElement, formElement)
+
+			toggleButtonState(inputList, formElement)
+		})
+	})
+}
+
+//Установка слушателей на формы попапа
+function setFormValidListener () {
+	formList.forEach(function(formElement) {
+		formElement.addEventListener('submit', function(event) {
+			event.preventDefault()
+		})
+		setInputValidListener(formElement)
+	})
+}
+
+//Функция скрытия непройденной проверки валидности
+function hideError (inputElement, formElement) {
+	inputElement.classList.remove('popup__input_invalid')
+
+	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
+	inputError.classList.remove('popup__error-hint_active')
+	inputError.textContent = ''
+}
+
+//Функция показа непройденной проверки валидности
+function showError (inputElement, formElement, errorMessage) {
+	inputElement.classList.add('popup__input_invalid')
+
+	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
+	inputError.classList.add('popup__error-hint_active')
+	inputError.textContent = errorMessage
+}
+
+//Проверка полей ввода на валидность
+function checkInputValidity (inputElement, formElement) {
+	if (!inputElement.validity.valid) {
+		showError(inputElement, formElement, inputElement.validationMessage)
+	} else {
+		hideError(inputElement, formElement)
+	}
+}
+
+function toggleButtonState (inputList, formElement) {
+	const buttonElement = formElement.querySelector('.popup__btn-submit')
+
+	if (hasValidInput(inputList)) {
+		buttonElement.classList.add('popup__btn-submit_inactive')
+		buttonElement.setAttribute('disabled', 'true')
+		console.log('inactive')
+	} else {
+		buttonElement.classList.remove('popup__btn-submit_inactive')
+		buttonElement.removeAttribute('disabled', 'true')
+		console.log('active')
+	}
+}
+
+function hasValidInput (inputList) {
+	return inputList.some(function(inputElement) {
+		return !inputElement.validity.valid
+	})
+
+}
+
+const popUpList = Array.from(document.querySelectorAll('.popup'))
+
+//Вешаю слушатели на весь попап
+popUpList.forEach(function(popUpElement) {
+	popUpElement.addEventListener('keydown', function(event) {
+		if (event.key === 'Escape') {
+		console.log('working')
+		}
+	})
+})
+
+//Функция закрытия попапа на Esc
+// function handleEscClose (event) {
+// 	if (event.key === 'Escape') {
+// 		console.log('working')
+// 	}
+// }
+
+//Функция закрытия попапа на клик
+// function closePopUpOnClick () {
+	
+
+// 	popUpList.forEach(function(popUpElement){
+// 		popUpElement.addEventListener('click', function() {
+// 			popUpElement.classList.remove('popup_opened')
+// 		})
+// 	})
+// }
+
+// closePopUpOnClick()
+setFormValidListener()
