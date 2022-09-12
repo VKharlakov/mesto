@@ -15,10 +15,10 @@
 				<img class="profile__avatar" src="./images/profile/avatar.jpg" alt="Ваш аватар">
 				<div class="profile__info">
 					<h1 class="profile__name">Жак-Ив Кусто</h1>
-					<button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
+					<button class="profile__edit-button" id="btn-show-edit-profile-form" type="button" aria-label="Редактировать профиль" name="EditProfile"></button>
 					<p class="profile__brief">Исследователь океана</p>
 				</div>
-				<button class="profile__add-button" type="button" aria-label="Добавить"></button>
+				<button class="profile__add-button" id="btn-show-add-photos-form" type="button" aria-label="Добавить" name="AddPhotos"></button>
 			</section>
 			<section class="elements">
 				<ul class="elements__list"></ul>
@@ -78,6 +78,7 @@
 					</div>
 				</li>
 			</template>
+		<script src="./scripts/validate.js"></script>
 		<script src="./scripts/index.js"></script>
 		<script src="./scripts/cards.js"></script>
 	</body>

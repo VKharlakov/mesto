@@ -1,10 +1,8 @@
 const closeButtonList = document.querySelectorAll('.popup__btn-close')
-const editButton = document.querySelector('.profile__edit-button')
 const profileName = document.querySelector('.profile__name')
 const profileBrief = document.querySelector('.profile__brief')
 const inputName = document.querySelector('.popup__input_type_name')
 const inputBrief = document.querySelector('.popup__input_type_brief')
-const addButton = document.querySelector('.profile__add-button')
 const photoElementList = document.querySelectorAll('.elements__element')
 const photoUploadedName = document.querySelector('.elements__title')
 const photoUploadedLink = document.querySelector('.elements__photo')
@@ -22,6 +20,7 @@ const popUpPhotoLink = document.querySelector('.popup__input_type_photo-link')
 const fullscreenImage = document.querySelector('.popup__image-fullscreen')
 const fullscreenImageSubtitle = document.querySelector('.popup__image-subtitle')
 const body = document.querySelector('.page')
+const popUpList = Array.from(document.querySelectorAll('.popup'))
 
 // Общая функция вызова попапа
 function showPopUp(popup) {
@@ -30,17 +29,29 @@ function showPopUp(popup) {
 }
 
 // Функция вызова попапа редактирования профиля
-function openEditProfilePopUp () {
+function openEditProfilePopUp (inputList, formElement, buttonElement, validationSettings) {
 	inputName.value = profileName.textContent
 	inputBrief.value = profileBrief.textContent
+
+	inputList.forEach(function(inputElement) {
+		hideError(inputElement, formElement, validationSettings)
+	})
+
+	toggleButtonState(inputList, formElement, buttonElement, validationSettings)
 
 	showPopUp(editProfilePopUp)
 }
 
 // Функция вызова попапа добавления фото
-function openAddPhotosPopUp () {
+function openAddPhotosPopUp (inputList, formElement, buttonElement, validationSettings) {
 	popUpPhotoTitle.value = ''
 	popUpPhotoLink.value = ''
+
+	inputList.forEach(function(inputElement) {
+		hideError(inputElement, formElement, validationSettings)
+	})
+
+	toggleButtonState(inputList, formElement, buttonElement, validationSettings)
 
 	showPopUp(addPhotosPopUp)
 }
@@ -50,16 +61,6 @@ function hidePopUp(popup) {
 	popup.classList.remove('popup_opened')
 	body.removeEventListener('keydown', handleEscClose)
 }
-
-// Слушатель события для вызова попапа редактирования профиля
-editButton.addEventListener('click', function() {
-	openEditProfilePopUp();
-})
-
-// Слушатель события для вызова попапа добавления фотографий
-addButton.addEventListener('click', function() {
-	openAddPhotosPopUp();
-})
 
 // Функция со слушателем для кнопки закрытия попапа
 closeButtonList.forEach(function(button) {
@@ -125,98 +126,30 @@ function renderCard (url, title) {
 	cardsContainer.prepend(createCard(url, title))
 }
 
-const formList = Array.from(document.querySelectorAll('.popup__form'))
-
-//Установка слушателей на поля ввода и вызов функции проверки полей ввода на валидность
-function setInputValidListener (formElement) {
-	const inputList = Array.from(formElement.querySelectorAll('.popup__input'))
-
-	toggleButtonState(inputList, formElement)
-
-	inputList.forEach(function(inputElement) {
-		inputElement.addEventListener('input', function(event) {
-			checkInputValidity(inputElement, formElement)
-
-			toggleButtonState(inputList, formElement)
-		})
-	})
-}
-
-//Установка слушателей на формы попапа
-function setFormValidListener () {
-	formList.forEach(function(formElement) {
-		formElement.addEventListener('submit', function(event) {
-			event.preventDefault()
-		})
-		setInputValidListener(formElement)
-	})
-}
-
 //Функция скрытия непройденной проверки валидности
-function hideError (inputElement, formElement) {
-	inputElement.classList.remove('popup__input_invalid')
+function hideError (inputElement, formElement, validationSettings) {
+	inputElement.classList.remove(validationSettings.errorClass)
 
 	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
-	inputError.classList.remove('popup__error-hint_active')
+	inputError.classList.remove(validationSettings.inputErrorClass)
 	inputError.textContent = ''
 }
 
 //Функция показа непройденной проверки валидности
-function showError (inputElement, formElement, errorMessage) {
-	inputElement.classList.add('popup__input_invalid')
+function showError (inputElement, formElement, validationSettings, errorMessage) {
+	inputElement.classList.add(validationSettings.errorClass)
 
 	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
-	inputError.classList.add('popup__error-hint_active')
+	inputError.classList.add(validationSettings.inputErrorClass)
 	inputError.textContent = errorMessage
 }
-
-//Проверка полей ввода на валидность
-function checkInputValidity (inputElement, formElement) {
-	if (!inputElement.validity.valid) {
-		showError(inputElement, formElement, inputElement.validationMessage)
-	} else {
-		hideError(inputElement, formElement)
-	}
-}
-
-function toggleButtonState (inputList, formElement) {
-	const buttonElement = formElement.querySelector('.popup__btn-submit')
-
-	if (hasValidInput(inputList)) {
-		buttonElement.classList.add('popup__btn-submit_inactive')
-		buttonElement.setAttribute('disabled', 'true')
-		console.log('inactive')
-	} else {
-		buttonElement.classList.remove('popup__btn-submit_inactive')
-		buttonElement.removeAttribute('disabled', 'true')
-		console.log('active')
-	}
-}
-
-function hasValidInput (inputList) {
-	return inputList.some(function(inputElement) {
-		return !inputElement.validity.valid
-	})
-
-}
-
-const popUpList = Array.from(document.querySelectorAll('.popup'))
-
-//Вешаю слушатели на весь попап
-// popUpList.forEach(function(popUpElement) {
-// 	popUpElement.addEventListener('keydown', function(event) {
-// 		if (event.key === 'Escape') {
-// 		console.log('working')
-// 		}
-// 	})
-// })
 
 //Функция закрытия попапа на Esc
 function handleEscClose (event) {
 	popUpList.forEach(function(popUpElement){
 		if (event.key === 'Escape') {
 		hidePopUp(popUpElement)
-	}
+		}
 	})
 }
 
@@ -231,6 +164,24 @@ function closePopUpOnClick () {
 	})
 }
 
+//Функция изменения стилей кнопки в зависимости от валидности полей
+function toggleButtonState (inputList, formElement, buttonElement, validationSettings) {
+	if (hasInvalidInput(inputList)) {
+		buttonElement.classList.add(validationSettings.inactiveButtonClass)
+		buttonElement.setAttribute('disabled', 'true')
+	} else {
+		buttonElement.classList.remove(validationSettings.inactiveButtonClass)
+		buttonElement.removeAttribute('disabled', 'true')
+	}
+}
+
+enableValidation({
+	formSelector: '.popup__form',
+	inputSelector: '.popup__input',
+	submitButtonSelector: '.popup__btn-submit',
+	inactiveButtonClass: 'popup__btn-submit_inactive',
+	inputErrorClass: 'popup__error-hint_active',
+	errorClass: 'popup__input_invalid'
+});
 
 closePopUpOnClick()
-setFormValidListener()
