@@ -1,9 +1,38 @@
+//Функция скрытия непройденной проверки валидности
+function hideError (inputElement, formElement, validationSettings) {
+	inputElement.classList.remove(validationSettings.errorClass)
+
+	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
+	inputError.classList.remove(validationSettings.inputErrorClass)
+	inputError.textContent = ''
+}
+
+//Функция показа непройденной проверки валидности
+function showError (inputElement, formElement, validationSettings, errorMessage) {
+	inputElement.classList.add(validationSettings.errorClass)
+
+	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
+	inputError.classList.add(validationSettings.inputErrorClass)
+	inputError.textContent = errorMessage
+}
+
 //Проверка полей ввода на валидность
 function checkInputValidity (inputElement, formElement, validationSettings) {
 	if (!inputElement.validity.valid) {
 		showError(inputElement, formElement, validationSettings, inputElement.validationMessage)
 	} else {
 		hideError(inputElement, formElement, validationSettings)
+	}
+}
+
+//Функция изменения стилей кнопки в зависимости от валидности полей
+function toggleButtonState (inputList, formElement, buttonElement, validationSettings) {
+	if (hasInvalidInput(inputList)) {
+		buttonElement.classList.add(validationSettings.inactiveButtonClass)
+		buttonElement.setAttribute('disabled', 'true')
+	} else {
+		buttonElement.classList.remove(validationSettings.inactiveButtonClass)
+		buttonElement.removeAttribute('disabled', 'true')
 	}
 }
 

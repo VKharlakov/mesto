@@ -126,24 +126,6 @@ function renderCard (url, title) {
 	cardsContainer.prepend(createCard(url, title))
 }
 
-//Функция скрытия непройденной проверки валидности
-function hideError (inputElement, formElement, validationSettings) {
-	inputElement.classList.remove(validationSettings.errorClass)
-
-	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
-	inputError.classList.remove(validationSettings.inputErrorClass)
-	inputError.textContent = ''
-}
-
-//Функция показа непройденной проверки валидности
-function showError (inputElement, formElement, validationSettings, errorMessage) {
-	inputElement.classList.add(validationSettings.errorClass)
-
-	const inputError = formElement.querySelector(`#${inputElement.id}-error`)
-	inputError.classList.add(validationSettings.inputErrorClass)
-	inputError.textContent = errorMessage
-}
-
 //Функция закрытия попапа на Esc
 function handleEscClose (event) {
 	popUpList.forEach(function(popUpElement){
@@ -158,21 +140,10 @@ function closePopUpOnClick () {
 	popUpList.forEach(function(popUpElement){
 		popUpElement.addEventListener('click', function(element) {
 			if (element.target.id === 'edit-profile' || element.target.id === 'add-photos' || element.target.id === 'fullscreen-photos') {
-				popUpElement.classList.remove('popup_opened')
+				hidePopUp(popUpElement)
 			}
 		})
 	})
-}
-
-//Функция изменения стилей кнопки в зависимости от валидности полей
-function toggleButtonState (inputList, formElement, buttonElement, validationSettings) {
-	if (hasInvalidInput(inputList)) {
-		buttonElement.classList.add(validationSettings.inactiveButtonClass)
-		buttonElement.setAttribute('disabled', 'true')
-	} else {
-		buttonElement.classList.remove(validationSettings.inactiveButtonClass)
-		buttonElement.removeAttribute('disabled', 'true')
-	}
 }
 
 enableValidation({
