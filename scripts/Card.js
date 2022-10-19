@@ -1,17 +1,20 @@
 import { showPopUp } from "./index.js";
 
 const popUpFullscreen = document.querySelector('#fullscreen-photos')
+const popupPhoto = popUpFullscreen.querySelector('.popup__image-fullscreen')
+const popupPhotoSubtitle = popUpFullscreen.querySelector('.popup__image-subtitle')
 
 class Card {
-	constructor(title, source) {
+	constructor(title, source, templateSelector) {
 		this._title = title;
 		this._source = source;
+        this._templateSelector = templateSelector;
 	}
 
 	//Метод, который берет из html верстку div'a карточки
 	_getTemplate() {		
 		const cardElement = document
-			.querySelector('.elements__element-template')
+			.querySelector(this._templateSelector)
 			.content
 			.querySelector('.elements__element')
 			.cloneNode(true);
@@ -21,11 +24,9 @@ class Card {
 
 	//Метод открытия попапа
 	_handleOpenPopup = () => {
-		const popupPhoto = popUpFullscreen.querySelector('.popup__image-fullscreen')
-
 		popupPhoto.src = this._source;
 		popupPhoto.alt = `На фото: ${this._title}`;
-		popUpFullscreen.querySelector('.popup__image-subtitle').textContent = this._title;
+		popupPhotoSubtitle.textContent = this._title;
 
 		showPopUp(popUpFullscreen)
 	}

@@ -18,6 +18,8 @@ const popUpPhotoTitle = document.querySelector('.popup__input_type_photo-title')
 const popUpPhotoLink = document.querySelector('.popup__input_type_photo-link')
 const body = document.querySelector('.page')
 const popUpList = Array.from(document.querySelectorAll('.popup'))
+const editProfileButton = document.querySelector('.profile__edit-button')
+const addPhotosButton = document.querySelector('.profile__add-button')
 
 // Конфиг для класса FormValidator
 const config = {
@@ -46,7 +48,7 @@ function hidePopUp(popup) {
 function closePopUpOnClick () {
 	popUpList.forEach(function(popUpElement){
 		popUpElement.addEventListener('click', function(element) {
-			if (element.target.id === 'edit-profile' || element.target.id === 'add-photos' || element.target.id === 'fullscreen-photos') {
+			if (element.target.classList === 'popup') {
 				hidePopUp(popUpElement)
 			}
 		})
@@ -56,13 +58,12 @@ function closePopUpOnClick () {
 // Объявление функции с добавлением слушателей
 closePopUpOnClick()
 
-//Функция закрытия попапа на Esc
+// Функция закрытия попапа на Esc
 function handleEscClose (event) {
-	popUpList.forEach(function(popUpElement){
-		if (event.key === 'Escape') {
-		hidePopUp(popUpElement)
-		}
-	})
+	if (event.key === 'Escape') {
+		const currentPopup = document.querySelector('.popup_opened')
+		hidePopUp(currentPopup)
+	}
 }
 
 // Функция вызова попапа редактирования профиля
@@ -75,15 +76,15 @@ function openEditProfilePopUp () {
 
 // Функция вызова попапа добавления фото
 function openAddPhotosPopUp () {
-	popUpPhotoTitle.value = ''
-	popUpPhotoLink.value = ''
+	popUpPhotoTitle.reset
+	popUpPhotoLink.reset
 	
 	showPopUp(addPhotosPopUp)
 }
 
 // Слушатели события 'click' на кнопках редактирования профиля и добавления фото
-document.querySelector('.profile__edit-button').addEventListener('click', openEditProfilePopUp)
-document.querySelector('.profile__add-button').addEventListener('click', openAddPhotosPopUp)
+editProfileButton.addEventListener('click', openEditProfilePopUp)
+addPhotosButton.addEventListener('click', openAddPhotosPopUp)
 
 // Функция со слушателем для кнопки ("X") закрытия попапа
 closeButtonList.forEach(function(button) {
@@ -104,7 +105,7 @@ editProfileForm.addEventListener('submit', function(event) {
 // Слушатель события с функцией отправки формы добавления фото
 addPhotosForm.addEventListener('submit', function(event) {
 	event.preventDefault()
-	renderCard(photoTitle.value, photoLink.value)
+	addCardtoDOM(photoTitle.value, photoLink.value, '.elements__element-template')
 	hidePopUp(addPhotosPopUp)
 })
 
@@ -115,15 +116,19 @@ formList.forEach(function(formElement) {
 	newForm.enableValidation()
 })
 
-//Функция добавления новой карточки
-function renderCard(title, source) {
+// Функция создания новой карточки из класса 'Card'
+function renderCard(title, source, templateSelector) {
 	
-	const cardElement = new Card(title, source);
-	
-	cardsContainer.append(cardElement.createCard())
+	const cardElement = new Card(title, source, templateSelector);
+	return cardElement.createCard()
 }
 
-//Функция для добавления дефолтных фотографий на сайт при загрузке
+// Функция добавления карточки в DOM
+function addCardtoDOM(title, source, templateSelector) {
+	cardsContainer.prepend(renderCard(title, source, templateSelector))
+}
+
+// Функция для добавления дефолтных фотографий на сайт при загрузке
 initialCards.defaultCardsArray.forEach(function(card) {
-	renderCard(card.title, card.url)
+	addCardtoDOM(card.title, card.url, '.elements__element-template')
 })
