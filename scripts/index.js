@@ -31,14 +31,6 @@ const config = {
 	errorClass: 'popup__input_invalid'
 };
 
-// Функция вызова попапа
-export function showPopUp(popup) {
-	popup.classList.add('popup_opened')
-	body.addEventListener('keydown', handleEscClose)
-
-	checkValidity(config)
-}
-
 // Функция закрытия попапа
 function hidePopUp(popup) {
 	popup.classList.remove('popup_opened')
@@ -72,6 +64,7 @@ function handleEscClose (event) {
 function openEditProfilePopUp () {
 	inputName.value = profileName.textContent
 	inputBrief.value = profileBrief.textContent
+	editProfilePopUp.formValidator.toggleButtonState()
 
 	showPopUp(editProfilePopUp)
 }
@@ -80,6 +73,7 @@ function openEditProfilePopUp () {
 function openAddPhotosPopUp () {
 	popUpPhotoTitle.value = ''
 	popUpPhotoLink.value = ''
+	addPhotosPopUp.formValidator.toggleButtonState()
 	
 	showPopUp(addPhotosPopUp)
 }
@@ -111,15 +105,19 @@ addPhotosForm.addEventListener('submit', function(event) {
 	hidePopUp(addPhotosPopUp)
 })
 
+// Функция вызова попапа
+export function showPopUp(popup) {
+	popup.classList.add('popup_opened')
+	body.addEventListener('keydown', handleEscClose)
+}
+
 //Функция вызова класса FormValidator для каждой формы
 const formList = Array.from(document.querySelectorAll(config.formSelector))
-
-function checkValidity(config) {
-	formList.forEach(function(formElement) {
-		const newForm = new FormValidator(config, formElement);
-		return newForm.enableValidation()
-	})
-}
+formList.forEach(function(formElement) {
+	const newForm = new FormValidator(config, formElement);
+	formElement.closest('.popup').formValidator = newForm;
+	return newForm.enableValidation()
+})
 
 // Функция создания новой карточки из класса 'Card'
 function renderCard(title, source, templateSelector) {
