@@ -35,6 +35,8 @@ const config = {
 export function showPopUp(popup) {
 	popup.classList.add('popup_opened')
 	body.addEventListener('keydown', handleEscClose)
+
+	checkValidity(config)
 }
 
 // Функция закрытия попапа
@@ -111,10 +113,15 @@ addPhotosForm.addEventListener('submit', function(event) {
 
 //Функция вызова класса FormValidator для каждой формы
 const formList = Array.from(document.querySelectorAll(config.formSelector))
-formList.forEach(function(formElement) {
-	const newForm = new FormValidator(config, formElement);
-	newForm.enableValidation()
-})
+
+function checkValidity(config) {
+	formList.forEach(function(formElement) {
+		const newForm = new FormValidator(config, formElement);
+		return newForm.enableValidation()
+	})
+}
+
+checkValidity(config)
 
 // Функция создания новой карточки из класса 'Card'
 function renderCard(title, source, templateSelector) {
