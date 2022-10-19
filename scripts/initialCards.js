@@ -1,5 +1,5 @@
 // Массив с дефолтными фотографиями для заполнения пустой страницы
-const defaultCardsArray = [
+export const defaultCardsArray = [
 	{
 	'url': './images/elements/nnovgorod-6.jpg',
 	'title': 'Нижний Новгород'
@@ -25,8 +25,3 @@ const defaultCardsArray = [
 	'title': 'Москва'
 	}
 ]
-
-//Функция для добавления дефолтных фотографий на сайт при загрузке
-defaultCardsArray.forEach(function(card) {
-	renderCard(card.url, card.title)
-})
