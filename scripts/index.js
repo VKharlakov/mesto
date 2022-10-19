@@ -71,8 +71,7 @@ function openEditProfilePopUp () {
 
 // Функция вызова попапа добавления фото
 function openAddPhotosPopUp () {
-	popUpPhotoTitle.value = ''
-	popUpPhotoLink.value = ''
+	addPhotosForm.reset()
 	addPhotosPopUp.formValidator.toggleButtonState()
 	
 	showPopUp(addPhotosPopUp)
