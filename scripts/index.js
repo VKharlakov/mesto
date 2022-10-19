@@ -121,8 +121,6 @@ function checkValidity(config) {
 	})
 }
 
-checkValidity(config)
-
 // Функция создания новой карточки из класса 'Card'
 function renderCard(title, source, templateSelector) {
 	
