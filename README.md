@@ -21,5 +21,5 @@
 
 *Примечание: все картинки на сайте были оптимизированы с помощью бесплатного сервиса TinyPNG.com*
 
-![alt text](./images/profile/avatar.jpg "Аватар профиля")
-![alt text](./images/elements/bogolyobovo-5.jpg "Пример загруженной фотографии")
+![alt text](./src/images/profile/avatar.jpg "Аватар профиля")
+![alt text](./src/images/elements/bogolyobovo-5.jpg "Пример загруженной фотографии")
