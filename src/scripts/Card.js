@@ -5,7 +5,7 @@ const popupPhoto = popUpFullscreen.querySelector('.popup__image-fullscreen')
 const popupPhotoSubtitle = popUpFullscreen.querySelector('.popup__image-subtitle')
 
 class Card {
-	constructor({data, hadndleCardClick}, templateSelector) {
+	constructor({data, handleCardClick}, templateSelector) {
 		this._title = title;
 		this._source = source;
         this._templateSelector = templateSelector;
