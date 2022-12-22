@@ -1,138 +1,93 @@
-import FormValidator from './scripts/FormValidator.js';
-import Card from './scripts/Card.js';
-import * as initialCards from './scripts/initialCards.js';
+import './pages/index.css'
 
-import './pages/index.css'; // добавим импорт главного файла стилей
+import FormValidator from './components/FormValidator.js';
+import Card from './components/Card.js';
+import Section from './components/Section.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import UserInfo from './components/UserInfo.js';
 
-const closeButtonList = document.querySelectorAll('.popup__btn-close')
-const profileName = document.querySelector('.profile__name')
-const profileBrief = document.querySelector('.profile__brief')
-const inputName = document.querySelector('.popup__input_type_name')
-const inputBrief = document.querySelector('.popup__input_type_brief')
-const cardsContainer = document.querySelector('.elements__list')
-const addPhotosPopUp = document.querySelector('.popup_type_add-photos')
-const editProfilePopUp = document.querySelector('.popup_type_edit-profile')
-const photoLink = document.querySelector('.popup__input_type_photo-link')
-const photoTitle = document.querySelector('.popup__input_type_photo-title')
-const editProfileForm = document.querySelector('#edit-profile-form')
-const addPhotosForm = document.querySelector('#add-photos-form')
-const popUpPhotoTitle = document.querySelector('.popup__input_type_photo-title')
-const popUpPhotoLink = document.querySelector('.popup__input_type_photo-link')
-const body = document.querySelector('.page')
-const popUpList = Array.from(document.querySelectorAll('.popup'))
-const editProfileButton = document.querySelector('.profile__edit-button')
-const addPhotosButton = document.querySelector('.profile__add-button')
+import {
+	config,
+	editProfilePopup,
+	addPhotosPopup,
+	photoLink,
+	photoTitle,
+	fullscreenPhoto,
+	cardsContainer,
+	// elementTemplate,
+	inputName,
+	inputBrief,
+	profileBrief,
+	profileName,
+	defaultCardsArray,
+	editProfileButton,
+	addPhotosButton
+} from './utils/constants.js';
 
-// Конфиг для класса FormValidator
-const config = {
-	formSelector: '.popup__form',
-	inputSelector: '.popup__input',
-	submitButtonSelector: '.popup__btn-submit',
-	inactiveButtonClass: 'popup__btn-submit_inactive',
-	inputErrorClass: 'popup__error-hint_active',
-	errorClass: 'popup__input_invalid'
-};
+//Создание экземпляров проверок валидации на формы
+const editProfileForm = new FormValidator(config, editProfilePopup)
+const addPhotosForm = new FormValidator(config, addPhotosPopup)
 
-// Функция закрытия попапа
-function hidePopUp(popup) {
-	popup.classList.remove('popup_opened')
-	body.removeEventListener('keydown', handleEscClose)
-}
-
-// Функция с добавлением слушателей для 
-// закрытия попапа на клик
-function closePopUpOnClick () {
-	popUpList.forEach(function(popUpElement){
-		popUpElement.addEventListener('click', function(element) {
-			if (element.target.classList === 'popup') {
-				hidePopUp(popUpElement)
+//Создание экземпляра добавления фотографии
+const generateAddPhotosPopup = new PopupWithForm({
+	popupSelector: addPhotosPopup,
+	handleFormSubmit: () => {
+		const user = new UserInfo(photoTitle.value, photoLink.value)
+		const data = user.getUserInfo()
+		const newPhoto = new Card({
+			data: data,
+			handleCardClick: (title, source) => {
+				const popupWithImage = new PopupWithImage(fullscreenPhoto)
+				popupWithImage.open(title, source)
 			}
-		})
-	})
-}
+		}, '.elements__element-template')
 
-// Объявление функции с добавлением слушателей
-closePopUpOnClick()
-
-// Функция закрытия попапа на Esc
-function handleEscClose (event) {
-	if (event.key === 'Escape') {
-		const currentPopup = document.querySelector('.popup_opened')
-		hidePopUp(currentPopup)
+		cardsContainer.prepend(newPhoto.createCard())
 	}
-}
-
-// Функция вызова попапа редактирования профиля
-function openEditProfilePopUp () {
-	inputName.value = profileName.textContent
-	inputBrief.value = profileBrief.textContent
-	editProfilePopUp.formValidator.toggleButtonState()
-
-	showPopUp(editProfilePopUp)
-}
-
-// Функция вызова попапа добавления фото
-function openAddPhotosPopUp () {
-	addPhotosForm.reset()
-	addPhotosPopUp.formValidator.toggleButtonState()
-	
-	showPopUp(addPhotosPopUp)
-}
-
-// Слушатели события 'click' на кнопках редактирования профиля и добавления фото
-editProfileButton.addEventListener('click', openEditProfilePopUp)
-addPhotosButton.addEventListener('click', openAddPhotosPopUp)
-
-// Функция со слушателем для кнопки ("X") закрытия попапа
-closeButtonList.forEach(function(button) {
-	button.addEventListener('click', function(event) {
-		hidePopUp(event.target.closest('.popup'))
-	})
 })
 
-// Слушатель события с функцией отправки формы редактирования профиля
-editProfileForm.addEventListener('submit', function(event) {
-	event.preventDefault()
-	profileName.textContent = inputName.value
-	profileBrief.textContent = inputBrief.value
-
-	hidePopUp(editProfilePopUp)
+//Создание экземпляра редактирования профиля
+const generateEditProfilePopup = new PopupWithForm({
+	popupSelector: editProfilePopup,
+	handleFormSubmit: () => {
+		const user = new UserInfo(inputName.value, inputBrief.value)
+		const data = user.getUserInfo()
+		
+		profileName.textContent = data.name
+		profileBrief.textContent = data.brief
+	}
 })
 
-// Слушатель события с функцией отправки формы добавления фото
-addPhotosForm.addEventListener('submit', function(event) {
-	event.preventDefault()
-	addCardtoDOM(photoTitle.value, photoLink.value, '.elements__element-template')
-	hidePopUp(addPhotosPopUp)
-})
+generateEditProfilePopup.setEventListeners()
 
-// Функция вызова попапа
-export function showPopUp(popup) {
-	popup.classList.add('popup_opened')
-	body.addEventListener('keydown', handleEscClose)
-}
+const generateDefaultCards = new Section({
+	items: defaultCardsArray,
+	renderer: (data) => {
+		const newPhoto = new Card({
+			data,
+			handleCardClick: (title, source) => {
+				const popupWithImage = new PopupWithImage(fullscreenPhoto)
+				popupWithImage.open(title, source)
+			}
+		}, '.elements__element-template')
 
-//Функция вызова класса FormValidator для каждой формы
-const formList = Array.from(document.querySelectorAll(config.formSelector))
-formList.forEach(function(formElement) {
-	const newForm = new FormValidator(config, formElement);
-	formElement.closest('.popup').formValidator = newForm;
-	return newForm.enableValidation()
-})
+		generateDefaultCards.addItem(newPhoto.createCard())
+	}
+}, cardsContainer)
 
-// Функция создания новой карточки из класса 'Card'
-function renderCard(title, source, templateSelector) {
-	
-	const cardElement = new Card(title, source, templateSelector);
-	return cardElement.createCard()
-}
+editProfileForm.enableValidation()
+addPhotosForm.enableValidation()
+generateDefaultCards.render()
 
-// Функция добавления карточки в DOM
-function addCardtoDOM(title, source, templateSelector) {
-	cardsContainer.prepend(renderCard(title, source, templateSelector))
-}
+editProfileButton.addEventListener('click', () => {
+	const profileInfo = new UserInfo(profileName.textContent, profileBrief.textContent)
+	const userInfo = profileInfo.getUserInfo()
+	inputName.value = userInfo.name
+	inputBrief.value = userInfo.brief
+	generateEditProfilePopup.open()
+}) 
 
-// Функция для добавления дефолтных фотографий на сайт при загрузке
-initialCards.defaultCardsArray.forEach(function(card) {
-	addCardtoDOM(card.title, card.url, '.elements__element-template')
+addPhotosButton.addEventListener('click', () => {
+	generateAddPhotosPopup.open()
 })
