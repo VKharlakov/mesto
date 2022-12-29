@@ -5,16 +5,15 @@ export default class UserInfo {
     }
 
     getUserInfo() {
-        const userData = {}
-
-        userData.name = this._name
-        userData.brief = this._brief
-
+        const userData = {
+            name: this._name.textContent,
+            brief: this._brief.textContent
+        }
         return userData
     }
 
     setUserInfo(data) {
-        this._name.value = data.name
-        this._brief.value = data.brief
+        this._name.textContent = data.name
+        this._brief.textContent = data.brief
     }
 }

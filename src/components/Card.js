@@ -47,9 +47,11 @@ class Card {
 		elementPhoto.src = this._source;
 		elementPhoto.alt = `На фото: ${this._title}`;
 
+		console.log(this._source, this._title)
+
 		this._element.querySelector('.elements__title').textContent = this._title;
 
-		this._setEventListeners(elementPhoto);
+		this._setEventListeners();
 		
 		return this._element;
 	}
