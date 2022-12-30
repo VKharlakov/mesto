@@ -57,8 +57,6 @@ const generateEditProfilePopup = new PopupWithForm({
 
 const popupWithImage = new PopupWithImage(fullscreenPhoto)
 
-generateEditProfilePopup.setEventListeners()
-
 //Генерация карточки с фотографией
 const generateCard = (item) => {
 	const newPhoto = new Card({
