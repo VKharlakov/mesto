@@ -1,5 +1,6 @@
 .elements__delete-button {
 	background-image: url(../../../images/elements/delete-button.svg);
+	display: block;
 	width: 18px;
 	height: 19px;
 	background-position: center;
@@ -16,7 +17,7 @@
 	right: 20px;
 }
 
-.elements__like-button:hover {
-	opacity: .5;
+.elements__delete-button:hover {
+	opacity: .7;
 	cursor: pointer;
 }

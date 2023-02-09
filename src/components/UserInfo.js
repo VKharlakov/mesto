@@ -1,7 +1,8 @@
 export default class UserInfo {
-    constructor(name, brief) {
-        this._name = name
-        this._brief = brief
+    constructor(userName, userBrief, avatar) {
+        this._name = userName
+        this._brief = userBrief
+        this._avatar = avatar
     }
 
     getUserInfo() {
@@ -14,6 +15,16 @@ export default class UserInfo {
 
     setUserInfo(data) {
         this._name.textContent = data.name
-        this._brief.textContent = data.brief
+        this._brief.textContent = data.about
+    }
+
+    editAvatar(data){
+        this._avatar.src = data.avatar
+    }
+
+    getId() {
+        return {
+            user: this.element.textContent
+        }
     }
 }

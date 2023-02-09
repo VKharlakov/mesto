@@ -1,0 +1,12 @@
+.popup__container_type_delete-confirmation {
+    max-height: 181px;
+    padding-bottom: 36px;
+}
+
+.popup__container_type_delete-confirmation .popup__title {
+    margin-bottom: 38px;
+}
+
+.popup__container_type_delete-confirmation .popup__btn-submit {
+    margin-top: 0;
+}

@@ -1,0 +1,11 @@
+.popup__container_type_edit-avatar {
+    max-height: 272px;
+}
+
+.popup__container_type_edit-avatar .popup__input {
+    margin-bottom: 0;
+}
+
+.popup__container_type_edit-avatar .popup__error-hint {
+    top: 55%
+}

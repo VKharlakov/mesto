@@ -6,23 +6,26 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js'
 
 import {
 	config,
 	editProfilePopup,
 	addPhotosPopup,
-	photoLink,
-	photoTitle,
 	fullscreenPhoto,
 	cardsContainer,
-	// elementTemplate,
 	inputName,
 	inputBrief,
 	profileBrief,
 	profileName,
-	defaultCardsArray,
 	editProfileButton,
-	addPhotosButton
+	addPhotosButton,
+
+	deleteConfirmationPopup,
+	editProfileAvatarPopup,
+	profileAvatar,
+	apiConfig,
+	editProfileAvatarButton
 } from '../utils/constants.js';
 
 const userInfo = new UserInfo(profileName, profileBrief)
@@ -30,10 +33,21 @@ const userInfo = new UserInfo(profileName, profileBrief)
 //Создание экземпляров проверок валидации на формы
 const editProfileForm = new FormValidator(config, editProfilePopup)
 const addPhotosForm = new FormValidator(config, addPhotosPopup)
+const editAvatarForm = new FormValidator(config, editProfileAvatarPopup)
+
+//Создание экземпляра Api
+const {baseUrl, key} = apiConfig
+const api = new Api(baseUrl, key)
+
+//Рендер изначальных фотографий
+api.getInitialCardSet()
+.then((res) => {
+	renderCard.render(res)
+})
+.catch((err) => console.log(err))
 
 //Добавление карточек с фотографиями на страницу
 const renderCard = new Section({
-	items: defaultCardsArray,
 	renderer: (data) => {
 		renderCard.addItem(generateCard(data))
 	}
@@ -43,19 +57,59 @@ const renderCard = new Section({
 const generateAddPhotosPopup = new PopupWithForm({
 	popupSelector: addPhotosPopup,
 	handleFormSubmit: (data) => {
-		renderCard.addItem(generateCard(data))
+		generateAddPhotosPopup.changeBtnOnLoad(true)
+		api.postNewCard(data)
+		.then((data) => {
+			renderCard.addItem(generateCard(data))
+		})
+		.finally(() => {
+			generateAddPhotosPopup.changeBtnOnLoad(false)
+		})
 	}
 })
 
 //Создание экземпляра редактирования профиля
 const generateEditProfilePopup = new PopupWithForm({
 	popupSelector: editProfilePopup,
-	handleFormSubmit: (item) => {
-		userInfo.setUserInfo(item)
+	handleFormSubmit: (data) => {
+		generateEditProfilePopup.changeBtnOnLoad(true)
+		api.patchUserInfo(data)
+		.then((res) => {
+			userInfo.setUserInfo(res)
+		})
+		.finally(() => {
+			generateEditProfilePopup.changeBtnOnLoad(false)
+		})
+	}
+})
+
+//Создание экземпляра редактирования аватара профиля
+const generateEditProfileAvatarPopup = new PopupWithForm({
+	popupSelector: editProfileAvatarPopup,
+	handleFormSubmit: (data) => {
+		generateEditProfileAvatarPopup.changeBtnOnLoad(true)
+		api.editUserAvatar(data)
+		.then((res) => {
+			profileAvatar.src = res.avatar
+		})
+		.finally(() => {
+			generateEditProfileAvatarPopup.changeBtnOnLoad(false)
+		})
 	}
 })
 
 const popupWithImage = new PopupWithImage(fullscreenPhoto)
+
+let userID = null
+
+//Получение данных пользователя
+api.getUserInfo()
+.then((res) => {
+	userID = res._id
+	profileAvatar.src = res.avatar
+	profileName.textContent = res.name
+	profileBrief.textContent = res.about
+})
 
 //Генерация карточки с фотографией
 const generateCard = (item) => {
@@ -63,6 +117,38 @@ const generateCard = (item) => {
 		data: item,
 		handleCardClick: (title, source) => {
 			popupWithImage.open(title, source)
+		},
+		user: userID,
+		deleteCardClick: () => {
+			const confirmationPopup = new PopupWithForm({
+				popupSelector: deleteConfirmationPopup,
+				handleFormSubmit: () => {
+					api.deleteCard(item._id)
+					.then(() =>  {
+					newPhoto.deleteCard()
+					})
+				}
+			})
+			confirmationPopup.setEventListeners()
+			confirmationPopup.open()
+		},
+		putLike: () => {
+			api.putLike(newPhoto.data)
+			.then((res) => {
+				newPhoto.putLike(res)
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+		},
+		deleteLike: () => {
+			api.deleteLike(newPhoto.data)
+			.then((res) => {
+				newPhoto.deleteLike(res)
+			})
+			.catch((err) => {
+				console.log(err)
+			})
 		}
 	}, '.elements__element-template')
 
@@ -71,7 +157,7 @@ const generateCard = (item) => {
 
 editProfileForm.enableValidation()
 addPhotosForm.enableValidation()
-renderCard.render()
+editAvatarForm.enableValidation()
 
 editProfileButton.addEventListener('click', () => {
 	const {name, brief} = userInfo.getUserInfo()
@@ -80,6 +166,11 @@ editProfileButton.addEventListener('click', () => {
 	editProfileForm.toggleButtonState()
 	generateEditProfilePopup.open()
 }) 
+
+editProfileAvatarButton.addEventListener('click', () => {
+	editAvatarForm.toggleButtonState()
+	generateEditProfileAvatarPopup.open()
+})
 
 addPhotosButton.addEventListener('click', () => {
 	addPhotosForm.toggleButtonState()

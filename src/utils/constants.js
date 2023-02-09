@@ -29,29 +29,40 @@ export const editProfileButton = document.querySelector('.profile__edit-button')
 export const addPhotosButton = document.querySelector('.profile__add-button')
 export const fullscreenPhoto = document.querySelector('#fullscreen-photos')
 
-export const defaultCardsArray = [
-	{
-	'name': 'Нижний Новгород',
-	'brief': nnovgorodImg,
-	},
-	{
-	'name': 'Боголюбово',
-	'brief': bogolyobovoImg,
-	},
-	{
-	'name': 'Бородино',
-	'brief': borodinoImg
-	},
-	{
-	'name': 'Дубровицы',
-	'brief': dubrovitsyImg,
-	},
-	{
-	'name': 'Тула',
-	'brief': tulaImg,
-	},
-	{
-	'name': 'Москва',
-	'brief': moscowImg,
-	}
-]
+export const deleteConfirmationPopup = document.querySelector('.popup_type_delete-confirmation')
+export const editProfileAvatarPopup = document.querySelector('.popup_type_edit-profile-avatar')
+export const profileAvatar = document.querySelector('.profile__avatar')
+export const deletePhotoBtn = document.querySelector('.elements__delete-button')
+export const editProfileAvatarButton = document.querySelector('.profile__edit-avatar-button')
+  
+export const apiConfig = {
+	baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-58',
+	key: 'd568102e-76f6-4f9a-a85b-ebd98d4aaf86'
+  }
+
+// export const defaultCardsArray = [
+// 	{
+// 	'name': 'Нижний Новгород',
+// 	'brief': nnovgorodImg,
+// 	},
+// 	{
+// 	'name': 'Боголюбово',
+// 	'brief': bogolyobovoImg,
+// 	},
+// 	{
+// 	'name': 'Бородино',
+// 	'brief': borodinoImg
+// 	},
+// 	{
+// 	'name': 'Дубровицы',
+// 	'brief': dubrovitsyImg,
+// 	},
+// 	{
+// 	'name': 'Тула',
+// 	'brief': tulaImg,
+// 	},
+// 	{
+// 	'name': 'Москва',
+// 	'brief': moscowImg,
+// 	}
+// ]
