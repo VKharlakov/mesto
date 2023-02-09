@@ -14,6 +14,7 @@ export default class Api {
         }
     }
 
+    //Получение данных о пользователе
     getUserInfo() {
         return fetch (`${this._url}/users/me`, {
             method: 'GET',
@@ -27,6 +28,7 @@ export default class Api {
         })
     }
 
+    //Изменение данных пользователя
     patchUserInfo(data) {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
@@ -45,6 +47,7 @@ export default class Api {
         })
     }
 
+    //Изменение аватара пользователя
     editUserAvatar(data) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
@@ -62,6 +65,7 @@ export default class Api {
         })
     }
 
+    //Получение списка изначальных фотографий
     getInitialCardSet() {
         return fetch (`${this._url}/cards`, {
             method: 'GET',
@@ -75,6 +79,7 @@ export default class Api {
         })
     }
 
+    //Отправка новой фотографии
     postNewCard(data) {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
@@ -93,6 +98,7 @@ export default class Api {
         })
     }
 
+    //Удаление фотографии
     deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
             method: 'DELETE',
@@ -106,6 +112,7 @@ export default class Api {
         })
     }
 
+    //Добавление нового значения кнопки "Оценить"
     putLike(data) {
         return fetch(`${this._url}/cards/likes/${data._id}`, {
             method: 'PUT',
@@ -120,6 +127,7 @@ export default class Api {
         })
     }
 
+    //Удаление нового значения кнопки "Оценить"
     deleteLike(data) {
         return fetch(`${this._url}/cards/likes/${data._id}`, {
             method: 'DELETE',
