@@ -31,26 +31,25 @@ class Card {
 	}
 
 	putLike = (data) => {
-		this._element.querySelector('.elements__like-button').classList.add('elements__like-button_active');
-		this._element.querySelector('.elements__like-count').textContent = this._likesCount(data)
+		this._likeButton.classList.add('elements__like-button_active');
+		this._likeCount.textContent = this._likesCount(data)
 	}
 
 	deleteLike = (data) => {
-		this._element.querySelector('.elements__like-button').classList.remove('elements__like-button_active');
-		this._element.querySelector('.elements__like-count').textContent = this._likesCount(data)
+		this._likeButton.classList.remove('elements__like-button_active');
+		this._likeCount.textContent = this._likesCount(data)
 	}
 
 	//Метод, устанавливающий слушатели на карточки
 	_setEventListeners = () => { 		
-
 		//Слушатель кнопки "Удалить"
-		this._element.querySelector('.elements__delete-button').addEventListener('click', () => {
+		this._deleteButton.addEventListener('click', () => {
 			this._deleteCardClick()
 		})
 
 		//Слушатель кнопки "Оценить"
-		this._element.querySelector('.elements__like-button').addEventListener('click', (event) => {
-			if (this._element.querySelector('.elements__like-button').classList.contains('elements__like-button_active')) {
+		this._likeButton.addEventListener('click', (event) => {
+			if (this._likeButton.classList.contains('elements__like-button_active')) {
 				this._deleteLike()
 			} else {
 				this._putLike()
@@ -59,21 +58,21 @@ class Card {
 		})
 
 		//Слушатель открытия фото в полноэкранном режиме
-		this._element.querySelector('.elements__photo').addEventListener('click', () => {
+		this._cardImage.addEventListener('click', () => {
 			this._handleCardClick(this._title, this._source)}
 		)
 	}
 
 	_isOwner() {
 		if (this._owner === this._user) {
-			this._element.querySelector('.elements__delete-button').classList.remove('elements__delete-button_hidden')
+			this._deleteButton.classList.remove('elements__delete-button_hidden')
 		}
 	}
 
 	_isLiked() {
 		this.data.likes.forEach((owner) => {
 			if(owner._id === this._user) {
-				this._element.querySelector('.elements__like-button').classList.add('elements__like-button_active');
+				this._likeButton.classList.add('elements__like-button_active');
 			}
 		})
 	}
@@ -81,13 +80,15 @@ class Card {
 	//Метод, который записывает в верстку данные
 	createCard() {		
 		this._element = this._getTemplate();
+		this._deleteButton = this._element.querySelector('.elements__delete-button');
+		this._likeButton = this._element.querySelector('.elements__like-button');
+		this._likeCount = this._element.querySelector('.elements__like-count');
+		this._cardImage = this._element.querySelector('.elements__photo');
 
-		const elementPhoto = this._element.querySelector('.elements__photo');
+		this._cardImage.src = this._source;
+		this._cardImage.alt = `На фото: ${this._title}`;
 
-		elementPhoto.src = this._source;
-		elementPhoto.alt = `На фото: ${this._title}`;
-
-		this._element.querySelector('.elements__like-count').textContent = this._likes.length
+		this._likeCount.textContent = this._likes.length
 		this._element.querySelector('.elements__title').textContent = this._title;
 
 		this._setEventListeners();

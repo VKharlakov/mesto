@@ -41,7 +41,7 @@ class FormValidator {
 	}
 
 	//Функция изменения стилей кнопки в зависимости от валидности полей
-	toggleButtonState() {
+	_toggleButtonState() {
 		if (this._hasInvalidInput()) {
 			this._buttonElement.classList.add(this._config.inactiveButtonClass)
 			this._buttonElement.setAttribute('disabled', 'true')
@@ -56,8 +56,15 @@ class FormValidator {
 		this._inputList.forEach((inputElement) => {
 			inputElement.addEventListener('input', () => {
 				this._checkInputValidity(inputElement)
-				this.toggleButtonState()
+				this._toggleButtonState()
 			})
+		})
+	}
+
+	resetValidation() {
+		this._toggleButtonState()
+		this._inputList.forEach((inputElement) => {
+			this._hideError(inputElement)
 		})
 	}
 

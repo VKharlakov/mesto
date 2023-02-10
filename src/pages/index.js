@@ -28,7 +28,7 @@ import {
 	editProfileAvatarButton
 } from '../utils/constants.js';
 
-const userInfo = new UserInfo(profileName, profileBrief)
+const userInfo = new UserInfo(profileName, profileBrief, profileAvatar)
 
 //Создание экземпляров проверок валидации на формы
 const editProfileForm = new FormValidator(config, editProfilePopup)
@@ -39,12 +39,19 @@ const editAvatarForm = new FormValidator(config, editProfileAvatarPopup)
 const {baseUrl, key} = apiConfig
 const api = new Api(baseUrl, key)
 
-//Рендер изначальных фотографий
-api.getInitialCardSet()
-.then((res) => {
-	renderCard.render(res)
+let userID = null
+
+//Получение данных с сервера о изначальных фотографиях
+//и данных пользователя
+Promise.all([api.getUserInfo(), api.getInitialCardSet()])
+.then(([userData, initialCards]) => {
+	userID = userData._id
+	renderCard.render(initialCards)
+	userInfo.setUserInfo(userData)
 })
-.catch((err) => console.log(err))
+.catch((err) => {
+	console.log(err)
+})
 
 //Добавление карточек с фотографиями на страницу
 const renderCard = new Section({
@@ -62,6 +69,9 @@ const generateAddPhotosPopup = new PopupWithForm({
 		.then((data) => {
 			renderCard.addItem(generateCard(data))
 		})
+		.then(() => {
+			generateAddPhotosPopup.close()
+		})
 		.finally(() => {
 			generateAddPhotosPopup.changeBtnOnLoad(false)
 		})
@@ -76,6 +86,9 @@ const generateEditProfilePopup = new PopupWithForm({
 		api.patchUserInfo(data)
 		.then((res) => {
 			userInfo.setUserInfo(res)
+		})
+		.then(() => {
+			generateEditProfilePopup.close()
 		})
 		.finally(() => {
 			generateEditProfilePopup.changeBtnOnLoad(false)
@@ -92,23 +105,21 @@ const generateEditProfileAvatarPopup = new PopupWithForm({
 		.then((res) => {
 			profileAvatar.src = res.avatar
 		})
+		.then(() => {
+			generateEditProfileAvatarPopup.close()
+		})
 		.finally(() => {
 			generateEditProfileAvatarPopup.changeBtnOnLoad(false)
 		})
 	}
 })
 
+//Полноэкранный попап с фотографией
 const popupWithImage = new PopupWithImage(fullscreenPhoto)
 
-let userID = null
-
-//Получение данных пользователя
-api.getUserInfo()
-.then((res) => {
-	userID = res._id
-	profileAvatar.src = res.avatar
-	profileName.textContent = res.name
-	profileBrief.textContent = res.about
+//Попап подтверждения удаления фотографии
+const confirmationPopup = new PopupWithForm({
+	popupSelector: deleteConfirmationPopup,
 })
 
 //Генерация карточки с фотографией
@@ -120,16 +131,15 @@ const generateCard = (item) => {
 		},
 		user: userID,
 		deleteCardClick: () => {
-			const confirmationPopup = new PopupWithForm({
-				popupSelector: deleteConfirmationPopup,
-				handleFormSubmit: () => {
-					api.deleteCard(item._id)
-					.then(() =>  {
-					newPhoto.deleteCard()
-					})
-				}
-			})
-			confirmationPopup.setEventListeners()
+			confirmationPopup.handleFormSubmit = () => {
+				api.deleteCard(item._id)
+				.then(() =>  {
+				newPhoto.deleteCard()
+				})
+				.then(() => {
+					confirmationPopup.close()
+				})
+			}
 			confirmationPopup.open()
 		},
 		putLike: () => {
@@ -163,16 +173,16 @@ editProfileButton.addEventListener('click', () => {
 	const {name, brief} = userInfo.getUserInfo()
 	inputName.value = name
 	inputBrief.value = brief
-	editProfileForm.toggleButtonState()
+	editProfileForm.resetValidation()
 	generateEditProfilePopup.open()
 }) 
 
 editProfileAvatarButton.addEventListener('click', () => {
-	editAvatarForm.toggleButtonState()
+	editAvatarForm.resetValidation()
 	generateEditProfileAvatarPopup.open()
 })
 
 addPhotosButton.addEventListener('click', () => {
-	addPhotosForm.toggleButtonState()
+	addPhotosForm.resetValidation()
 	generateAddPhotosPopup.open()
 })
