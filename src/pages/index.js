@@ -72,6 +72,9 @@ const generateAddPhotosPopup = new PopupWithForm({
 		.then(() => {
 			generateAddPhotosPopup.close()
 		})
+		.catch((err) => {
+			console.log(err)
+		})
 		.finally(() => {
 			generateAddPhotosPopup.changeBtnOnLoad(false)
 		})
@@ -90,6 +93,9 @@ const generateEditProfilePopup = new PopupWithForm({
 		.then(() => {
 			generateEditProfilePopup.close()
 		})
+		.catch((err) => {
+			console.log(err)
+		})
 		.finally(() => {
 			generateEditProfilePopup.changeBtnOnLoad(false)
 		})
@@ -103,10 +109,13 @@ const generateEditProfileAvatarPopup = new PopupWithForm({
 		generateEditProfileAvatarPopup.changeBtnOnLoad(true)
 		api.editUserAvatar(data)
 		.then((res) => {
-			profileAvatar.src = res.avatar
+			userInfo.editAvatar(res.avatar)
 		})
 		.then(() => {
 			generateEditProfileAvatarPopup.close()
+		})
+		.catch((err) => {
+			console.log(err)
 		})
 		.finally(() => {
 			generateEditProfileAvatarPopup.changeBtnOnLoad(false)
@@ -138,6 +147,9 @@ const generateCard = (item) => {
 				})
 				.then(() => {
 					confirmationPopup.close()
+				})
+				.catch((err) => {
+					console.log(err)
 				})
 			}
 			confirmationPopup.open()

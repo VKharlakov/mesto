@@ -23,9 +23,6 @@ export default class Api {
             }
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 
     //Изменение данных пользователя
@@ -42,9 +39,6 @@ export default class Api {
             })
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 
     //Изменение аватара пользователя
@@ -60,9 +54,6 @@ export default class Api {
             })
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 
     //Получение списка изначальных фотографий
@@ -74,9 +65,6 @@ export default class Api {
             }
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 
     //Отправка новой фотографии
@@ -93,9 +81,6 @@ export default class Api {
             })
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 
     //Удаление фотографии
@@ -107,9 +92,6 @@ export default class Api {
             },
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 
     //Добавление нового значения кнопки "Оценить"
@@ -122,9 +104,6 @@ export default class Api {
             },
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 
     //Удаление нового значения кнопки "Оценить"
@@ -137,8 +116,5 @@ export default class Api {
             },
         })
         .then((res) => this._returnResponse(res))
-        .catch((err) => {
-            console.log(err)
-        })
     }
 }

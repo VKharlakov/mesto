@@ -21,7 +21,7 @@ export default class UserInfo {
     }
 
     editAvatar(data){
-        this._avatar.src = data.avatar
+        this._avatar.src = data
     }
 
     getId() {
